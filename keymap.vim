@@ -8,11 +8,16 @@ let g:leaderGuide_map = {
       \   ' ':  {
       \           'name': '<Leader>' 
       \           ,  'g': {
-      \                     'name': 'Git Menu',
-      \                     '<F4>'  : ['Gwrite',  'Git Write'],
+      \                     'name': 'Git',
       \                   }
       \           ,  'f': {
-      \                     'name': 'File Menu',
+      \                     'name': 'File',
+      \                   }
+      \           ,  'b': {
+      \                     'name': 'buffer',
+      \                   }
+      \           ,  'e': {
+      \                     'name': 'easymotion',
       \                   }
       \         }
       \ , ',':  {
@@ -43,6 +48,9 @@ nnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuide  ','<CR>
 vnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuideVisual  ','<CR>
 nmap <localleader> <Plug>(leaderguide-local)
 vmap <localleader> <Plug>(leaderguide-local)
+
+nmap <leader>ea <Plug>(easymotion-activate)
+nmap <leader>ef <Plug>(easymotion-f)
 
 nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
 nmap <leader>fa <Plug>(vim-edit-autocmds)
@@ -137,6 +145,7 @@ nnoremap <C-h>	<C-W>h
 nnoremap <C-l>	<C-W>l
 nnoremap <C-j>	<C-W>j
 nnoremap <C-k>	<C-W>k
+
 
 
 " nmap <silent> <leader>gs  :Gstatus<CR>

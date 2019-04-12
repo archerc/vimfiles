@@ -77,7 +77,7 @@ Plug 'Shougo/vimproc'
 Plug 'Shougo/vimfiler'
 Plug 'Shougo/vimshell'
 Plug 'Shougo/unite.vim'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/LeaderF-marks'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -173,7 +173,7 @@ let g:unite_kind_file_delete_file_command='rm'
 
 """"""""""""""""""""""""""""""""""""""
 """ UltiSnip
-let g:UltiSnipsSnippetDirectories=[$VIM.'/vimfiles/UltiSnips']
+"let g:UltiSnipsSnippetDirectories=[$VIM.'/vimfiles/UltiSnips']
 """"""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""
