@@ -160,8 +160,6 @@ nnoremap <C-j>	<C-W>j
 nnoremap <C-k>	<C-W>k
 
 
-
-
 " nmap <silent> <leader>ol  :lopen<CR>
 " nmap <silent> <leader>oo  :copen<CR>
  
