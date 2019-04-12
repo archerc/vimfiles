@@ -23,7 +23,9 @@ let g:leaderGuide_map = {
       \           'name': '<LocalLeader>' 
       \         }
       \ }
-call leaderGuide#register_prefix_descriptions('', 'g:leaderGuide_map')
+if exists('leaderGuide#register_prefix_descriptions')
+  call leaderGuide#register_prefix_descriptions('', 'g:leaderGuide_map')
+endif
 
 autocmd FileType gitcommit  noremap <buffer> <leader> <Plug>leaderguide-buffer
 " for fugitive
@@ -36,35 +38,48 @@ autocmd FileType tex let g:leaderGuide_map[','].l = { 'name' : 'vimtex' }
 let mapleader = ' '
 let maplocalleader = ','
 
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+nnoremap <Plug>(leaderguide-global) :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <Plug>(leaderguide-global) :<c-u>LeaderGuideVisual '<Space>'<CR>
+nmap <silent> <leader> <Plug>(leaderguide-global)
+vmap <silent> <leader> <Plug>(leaderguide-global)
 
-nnoremap <localleader> :<c-u>LeaderGuide  ','<CR>
-vnoremap <localleader> :<c-u>LeaderGuideVisual  ','<CR>
+nnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuide  ','<CR>
+vnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuideVisual  ','<CR>
+nmap <localleader> <Plug>(leaderguide-local)
+vmap <localleader> <Plug>(leaderguide-local)
 
-nnoremap <Plug>(open-vimrc) :e $VIM/vimfiles/init.vim<CR>
-nmap <leader>fd <Plug>(open-vimrc)
+nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
+nmap <leader>fa <Plug>(vim-edit-autocmds)
+
+nnoremap <Plug>(vimfiler-buffer-directory) :VimFilerBufferDir<CR>
+nmap <leader>fb <Plug>(vim-buffer-directory)
+
+nnoremap <Plug>(vimfiler-current-directory) :VimFiler<CR>
+nmap <leader>fc <Plug>(vim-current-directory)
+
+nnoremap <Plug>(vim-open-vimrc) :e $VIM/vimrc<CR>
+nmap <leader>fd <Plug>(vim-open-vimrc)
+
+nnoremap <Plug>(vim-init-file) :e $VIM/vimfiles/init.vim<CR>
+nmap <leader>fi <Plug>(vim-init-file)
 
 nnoremap <Plug>(open-vimrc-keymap) :e $VIM/vimfiles/keymap.vim<CR>
 nmap <leader>fk <Plug>(open-vimrc-keymap)
 
-nnoremap <Plug>(open-vimrc-plugins) :edit $VIM/vimfiles/plugins.vim<CR>
-nmap <leader>fp <Plug>(open-vimrc-plugins)
-
-nnoremap <Plug>(open-vimrc-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
-nmap <leader>fa <Plug>(open-vimrc-autocmds)
+nnoremap <Plug>(list-file) :LeaderfFile<CR>
+nmap <leader>fl <Plug>(list-file)
 
 nnoremap <Plug>(open-vimrc-options) :edit $VIM/vimfiles/options.vim<CR>
 nmap <Leader>fo <Plug>(open-vimrc-options)
 
-nnoremap <Plug>(source-vimrc) :source %<CR>
-nmap <leader>fs <Plug>(source-vimrc)
-
-nnoremap <Plug>(list-file) :LeaderfFile<CR>
-nmap <leader>fl <Plug>(list-file)
+nnoremap <Plug>(open-vimrc-plugins) :edit $VIM/vimfiles/plugins.vim<CR>
+nmap <leader>fp <Plug>(open-vimrc-plugins)
 
 nnoremap <Plug>(recent-file) :LeaderfMru<CR>
 nmap <leader>fr <Plug>(recent-file)
+
+nnoremap <Plug>(source-vimrc) :source %<CR>
+nmap <leader>fs <Plug>(source-vimrc)
 
 nnoremap <Plug>(file-treeview) :NERDTreeToggle<CR>
 nmap <leader>ft <Plug>(file-treeview)
@@ -101,6 +116,8 @@ nmap <leader>ss <Plug>(vimshell)
 
 nnoremap <Plug>(current-theme) :colorscheme<CR>
 nmap <leader>sc <Plug>(current-theme)
+
+nmap <leader>. <Plug>leaderguide-global
 
 inoremap jk <Esc>
 inoremap <C-s> <Esc>:w<cr>

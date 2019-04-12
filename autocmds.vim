@@ -2,6 +2,7 @@ augroup vim
 	autocmd!
 	autocmd FileType vim setlocal ts=2 sw=2
 	autocmd BufWritePost *.vim :source %
+	autocmd GUIEnter * colorscheme gruvbox
 augroup END
 
 augroup markdown

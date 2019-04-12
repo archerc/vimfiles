@@ -8,4 +8,11 @@ set ruler
 set showcmd
 set relativenumber
 set colorcolumn=80
+set guifont=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
+set background=dark
+try
+	colorscheme gruvbox
+catch
+	colorscheme desert
+endtry
 hi ColorColumn guibg=#440000

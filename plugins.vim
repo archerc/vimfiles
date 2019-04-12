@@ -159,3 +159,8 @@ let g:unite_kind_file_delete_file_command='rm'
 """ UltiSnip
 let g:UltiSnipsSnippetDirectories=[$VIM.'/vimfiles/UltiSnips']
 """"""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""
+""" vimproc
+let g:vimproc_dll_url = 'https://github.com/Shougo/vimproc.vim/releases/download/ver.9.3/vimproc_win64.dll'
+""""""""""""""""""""""""""""""""""""""
