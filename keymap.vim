@@ -8,11 +8,16 @@ let g:leaderGuide_map = {
       \   ' ':  {
       \           'name': '<Leader>' 
       \           ,  'g': {
-      \                     'name': 'Git Menu',
-      \                     '<F4>'  : ['Gwrite',  'Git Write'],
+      \                     'name': 'Git',
       \                   }
       \           ,  'f': {
-      \                     'name': 'File Menu',
+      \                     'name': 'File',
+      \                   }
+      \           ,  'b': {
+      \                     'name': 'buffer',
+      \                   }
+      \           ,  'e': {
+      \                     'name': 'easymotion',
       \                   }
       \         }
       \ , ',':  {
@@ -43,6 +48,22 @@ nnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuide  ','<CR>
 vnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuideVisual  ','<CR>
 nmap <localleader> <Plug>(leaderguide-local)
 vmap <localleader> <Plug>(leaderguide-local)
+
+nmap <leader>ea <Plug>(easymotion-activate)
+nmap <leader>ee <Plug>(easymotion-e)
+nmap <leader>eE <Plug>(easymotion-E)
+nmap <leader>ef <Plug>(easymotion-f)
+nmap <leader>eF <Plug>(easymotion-F)
+nmap <leader>ege <Plug>(easymotion-ge)
+nmap <leader>egE <Plug>(easymotion-gE)
+nmap <leader>ej <Plug>(easymotion-j)
+nmap <leader>ek <Plug>(easymotion-k)
+nmap <leader>et <Plug>(easymotion-t)
+nmap <leader>eT <Plug>(easymotion-T)
+nmap <leader>ew <Plug>(easymotion-w)
+nmap <leader>eb <Plug>(easymotion-b)
+nmap <leader>eW <Plug>(easymotion-W)
+nmap <leader>eB <Plug>(easymotion-B)
 
 nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
 nmap <leader>fa <Plug>(vim-edit-autocmds)
@@ -107,20 +128,20 @@ nmap <leader>gs <Plug>(git-status)
 nnoremap <Plug>(git-write) :Gwrite<CR>
 nmap <leader>gw <Plug>(git-write)
 
-nnoremap <Plug>(install-plugins) :PlugInstall<CR>
-nmap <leader>pi <Plug>(install-plugins)
+nnoremap <Plug>(plug-install) :PlugInstall<CR>
+nmap <leader>pi <Plug>(plug-install)
 
-nnoremap <Plug>(upgrade-plugins) :PlugUpgrade<CR>
-nmap <leader>pg <Plug>(upgrade-plugins)
+nnoremap <Plug>(plug-upgrade) :PlugUpgrade<CR>
+nmap <leader>pg <Plug>(plug-upgrade)
 
-nnoremap <Plug>(update-plugins) :PlugUpdate<CR>
-nmap <leader>pp <Plug>(update-plugins)
+nnoremap <Plug>(plug-update) :PlugUpdate<CR>
+nmap <leader>pp <Plug>(plug-update)
 
-nnoremap <Plug>(clean-plugins) :PlugClean<CR>
-nmap <leader>pc <Plug>(clean-plugins)
+nnoremap <Plug>(plug-clean) :PlugClean<CR>
+nmap <leader>pc <Plug>(plug-clean)
 
-nnoremap <Plug>(plugins-status) :PlugStatus<CR>
-nmap <leader>ps <Plug>(plugins-status)
+nnoremap <Plug>(plug-status) :PlugStatus<CR>
+nmap <leader>ps <Plug>(plug-status)
 
 nnoremap <Plug>(vimshell) :VimShell<CR>
 nmap <leader>ss <Plug>(vimshell)
@@ -139,7 +160,7 @@ nnoremap <C-j>	<C-W>j
 nnoremap <C-k>	<C-W>k
 
 
-" nmap <silent> <leader>gs  :Gstatus<CR>
+
 
 " nmap <silent> <leader>ol  :lopen<CR>
 " nmap <silent> <leader>oo  :copen<CR>
