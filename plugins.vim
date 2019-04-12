@@ -5,13 +5,29 @@ let plugins = [ ]
 call plug#begin(bundle_root)
 
 " " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'junegunn/vim-easy-align'
-Plug 'skywind3000/quickmenu.vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'airblade/vim-gitgutter'
+Plug 'archerc/vim-leader-guide'
+Plug 'archerc/vimim'
+Plug 'archerc/gvimfullscreen'
+Plug 'chemzqm/denite-git'
+Plug 'https://github.com/bounceme/remote-viewer' " Browse ssh:// and other remote paths
+" Plug 'https://github.com/kristijanhusak/vim-dirvish-git' " Show git status of each file
+Plug 'https://github.com/fsharpasharp/vim-dirvinist'  " List files defined by projections
+Plug 'honza/vim-snippets'
+Plug 'jreybert/vimagit'
+Plug 'junegunn/vim-easy-align'
+Plug 'justinmk/vim-dirvish'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-syntax'
+Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'morhetz/gruvbox'
-
 " 延迟按需加载，使用到命令的时候再加载或者打开对应文件类型才加载
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'sgur/vim-textobj-parameter'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/quickmenu.vim'
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'tpope/vim-pathogen'
 Plug 'tpope/vim-fugitive', { 'on': 'Gstatus' }
@@ -22,49 +38,22 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-markdown'
-
-Plug 'skywind3000/asyncrun.vim'
-
-" Plug 'w0rp/ale'
-
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-indent'
-Plug 'kana/vim-textobj-syntax'
-Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
-Plug 'sgur/vim-textobj-parameter'
-
 Plug 'vim-airline/vim-airline'
-Plug 'Yggdroot/LeaderF'
-Plug 'Yggdroot/LeaderF-marks'
-
-
-Plug 'justinmk/vim-dirvish'
-Plug 'https://github.com/bounceme/remote-viewer' " Browse ssh:// and other remote paths
-" Plug 'https://github.com/kristijanhusak/vim-dirvish-git' " Show git status of each file
-Plug 'https://github.com/fsharpasharp/vim-dirvinist'  " List files defined by projections
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'w0rp/ale'
+Plug 'yianwillis/vimcdoc'
 
 Plug 'JamshedVesuna/vim-markdown-preview'
-Plug 'yianwillis/vimcdoc'
-Plug 'airblade/vim-gitgutter'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/vimproc'
 Plug 'Shougo/vimfiler'
 Plug 'Shougo/vimshell'
 Plug 'Shougo/unite.vim'
-Plug 'chemzqm/denite-git'
-Plug 'jreybert/vimagit'
-
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-
-
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-Plug 'archerc/vim-leader-guide'
-Plug 'archerc/vimim'
-Plug 'archerc/gvimfullscreen'
+Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/LeaderF-marks'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 " " Any valid git URL is allowed
 " Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " 
