@@ -1,8 +1,34 @@
 let bundle_root = $VIM . '/vimfiles/bundle'
-let plugins = [ ]
+let plugins = [ 
+			\   'vim-startify'
+			\ , 'dein.vim'
+			\ , 'dein-ui.vim'
+			\ , 'dein-command.vim'
+			\ , 'context_filetype.vim'
+			\ , 'AutoComplPop'
+			\ , 'vim-matlab'
+			\ , 'unite-outline'
+			\ , 'unite-git-log'
+			\ , 'ruler.vim'
+			\ , 'python-mode'
+			\ , 'peaksea'
+			\ , 'nerdcommenter'
+			\ , 'nginx.vim'
+			\ , 'neomru.vim'
+			\ , 'vim-easymotion'
+			\ , 'vim-instant-markdown'
+			\ , 'limelight.vim'
+			\ , 'echodoc.vim'
+			\ ]
 """"""""""""""""""""""""""""""""""""""
 """  vim-plug
 call plug#begin(bundle_root)
+
+let s:sep = has('win32') ? '\' : '/'
+for p in plugins
+	let path = expand('<sfile>:p:h') . s:sep  . 'bundle' . s:sep . p 
+	call plug#(path)
+endfor
 
 " " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'altercation/vim-colors-solarized'
@@ -22,6 +48,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+Plug 'liuchengxu/vim-which-key'
 Plug 'morhetz/gruvbox'
 " 延迟按需加载，使用到命令的时候再加载或者打开对应文件类型才加载
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
