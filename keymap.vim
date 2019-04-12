@@ -9,10 +9,6 @@ let g:leaderGuide_map = {
       \           'name': '<Leader>' 
       \           ,  'g': {
       \                     'name': 'Git Menu',
-      \                     '<C-I>' : ['Gstatus', 'Git Status'],
-      \                     '<BS>'  : ['Gpull',   'Git Pull'],
-      \                     '<C-P>' : ['Gpush',   'Git Push'],
-      \                     '/'     : ['Gcommit', 'Git Commit'],
       \                     '<F4>'  : ['Gwrite',  'Git Write'],
       \                   }
       \           ,  'f': {
@@ -78,8 +74,8 @@ nmap <leader>fp <Plug>(open-vimrc-plugins)
 nnoremap <Plug>(recent-file) :LeaderfMru<CR>
 nmap <leader>fr <Plug>(recent-file)
 
-nnoremap <Plug>(source-vimrc) :source %<CR>
-nmap <leader>fs <Plug>(source-vimrc)
+nnoremap <Plug>(vim-reload-file) :source %<CR>
+nmap <leader>fs <Plug>(vim-reload-file)
 
 nnoremap <Plug>(file-treeview) :NERDTreeToggle<CR>
 nmap <leader>ft <Plug>(file-treeview)
@@ -93,8 +89,23 @@ nmap <leader>bl <Plug>(list-buffer)
 nnoremap <Plug>(delete-buffer) :bd<CR>
 nmap <leader>bd <Plug>(delete-buffer)
 
+nnoremap <Plug>(git-commit-amend) :Gcommit --amend<CR>
+nmap <leader>ga <Plug>(git-commit-amend)
+
+nnoremap <Plug>(git-commit) :Gcommit<CR>
+nmap <leader>gc <Plug>(git-commit)
+
+nnoremap <Plug>(git-pull) :Gpull<CR>
+nmap <leader>gp <Plug>(git-pull)
+
+nnoremap <Plug>(git-push) :Gpush<CR>
+nmap <leader>gq <Plug>(git-push)
+
 nnoremap <Plug>(git-status) :Gstatus<CR>
 nmap <leader>gs <Plug>(git-status)
+
+nnoremap <Plug>(git-write) :Gwrite<CR>
+nmap <leader>gw <Plug>(git-write)
 
 nnoremap <Plug>(install-plugins) :PlugInstall<CR>
 nmap <leader>pi <Plug>(install-plugins)
