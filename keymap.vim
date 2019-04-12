@@ -36,11 +36,21 @@ autocmd FileType tex let g:leaderGuide_map[','].l = { 'name' : 'vimtex' }
 let mapleader = ' '
 let maplocalleader = ','
 
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+nnoremap <Plug>(leaderguide-global) :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <Plug>(leaderguide-global) :<c-u>LeaderGuideVisual '<Space>'<CR>
+nmap <silent> <leader> <Plug>(leaderguide-global)
+vmap <silent> <leader> <Plug>(leaderguide-global)
 
-nnoremap <localleader> :<c-u>LeaderGuide  ','<CR>
-vnoremap <localleader> :<c-u>LeaderGuideVisual  ','<CR>
+nnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuide  ','<CR>
+vnoremap <Plug>(leaderguide-local) :<c-u>LeaderGuideVisual  ','<CR>
+nmap <localleader> <Plug>(leaderguide-local)
+vmap <localleader> <Plug>(leaderguide-local)
+
+nnoremap <Plug>(open-vimrc-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
+nmap <leader>fa <Plug>(open-vimrc-autocmds)
+
+nnoremap <Plug>(open-current-directory) :VimFilerBufferDir<CR>
+nmap <leader>fc <Plug>(open-current-directory)
 
 nnoremap <Plug>(open-vimrc) :e $VIM/vimfiles/init.vim<CR>
 nmap <leader>fd <Plug>(open-vimrc)
@@ -50,9 +60,6 @@ nmap <leader>fk <Plug>(open-vimrc-keymap)
 
 nnoremap <Plug>(open-vimrc-plugins) :edit $VIM/vimfiles/plugins.vim<CR>
 nmap <leader>fp <Plug>(open-vimrc-plugins)
-
-nnoremap <Plug>(open-vimrc-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
-nmap <leader>fa <Plug>(open-vimrc-autocmds)
 
 nnoremap <Plug>(open-vimrc-options) :edit $VIM/vimfiles/options.vim<CR>
 nmap <Leader>fo <Plug>(open-vimrc-options)
@@ -101,6 +108,8 @@ nmap <leader>ss <Plug>(vimshell)
 
 nnoremap <Plug>(current-theme) :colorscheme<CR>
 nmap <leader>sc <Plug>(current-theme)
+
+nmap <leader>. <Plug>leaderguide-global
 
 inoremap jk <Esc>
 inoremap <C-s> <Esc>:w<cr>
