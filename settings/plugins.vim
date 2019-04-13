@@ -180,3 +180,18 @@ let g:unite_kind_file_delete_file_command='rm'
 """ vimproc
 let g:vimproc_dll_url = 'https://github.com/Shougo/vimproc.vim/releases/download/ver.9.3/vimproc_win64.dll'
 """"""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""
+""" context_filetype
+if !exists('g:context_filetype#filetypes')
+	let g:context_filetype#filetypes = {}
+endif
+let g:context_filetype#filetypes.perl6 =
+			\ [{'filetype' : 'pir', 'start' : 'Q:PIR\s*{', 'end' : '}'}]
+let g:context_filetype#filetypes.vim =
+			\ [{'filetype' : 'python',
+			\   'start' : '^\s*python <<\s*\(\h\w*\)', 'end' : '^\1'}]
+let g:context_filetype#filetypes.pandoc =
+			\ [{'filetype' : 'tex',
+			\ 	'start' : '^\\begin{align}', 'end' : '\\end{align}'}]
+""""""""""""""""""""""""""""""""""""""

@@ -69,10 +69,10 @@ nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/autocmds.vim<CR>
 nmap <leader>fa <Plug>(vim-edit-autocmds)
 
 nnoremap <Plug>(vimfiler-buffer-directory) :VimFilerBufferDir<CR>
-nmap <leader>fb <Plug>(vim-buffer-directory)
+nmap <leader>fb <Plug>(vimfiler-buffer-directory)
 
 nnoremap <Plug>(vimfiler-current-directory) :VimFiler<CR>
-nmap <leader>fc <Plug>(vim-current-directory)
+nmap <leader>fc <Plug>(vimfiler-current-directory)
 
 nnoremap <Plug>(vim-open-vimrc) :e $VIM/vimrc<CR>
 nmap <leader>fd <Plug>(vim-open-vimrc)

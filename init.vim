@@ -1,9 +1,8 @@
 " vim: ft=vim ts=2 sw=2 et
-let scripts = ['options.vim', 'plugins.vim', 'keymap.vim', 'autocmds.vim']
-let s:sep = '\'
+let init_script = expand('<sfile>')
+let vimfiles = fnamemodify(init_script, ':p:h')
+let scripts = glob(vimfiles . '/settings/*.vim', v:false, v:true)
+let scripts = filter(scripts, 'filereadable(v:val)')
 for file in scripts
-	let filepath = $VIM . s:sep . 'vimfiles' . s:sep . file
-	if filereadable(filepath)
-		execute 'source ' . filepath
-	endif
+  execute 'source ' . file
 endfor
