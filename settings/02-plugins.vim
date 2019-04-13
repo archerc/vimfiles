@@ -1,32 +1,33 @@
-let bundle_root = $VIM . '/vimfiles/bundle'
+let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
-			\   'vim-startify'
-			\ , 'dein.vim'
-			\ , 'dein-ui.vim'
-			\ , 'dein-command.vim'
-			\ , 'context_filetype.vim'
-			\ , 'AutoComplPop'
-			\ , 'vim-matlab'
-			\ , 'unite-outline'
-			\ , 'unite-git-log'
-			\ , 'ruler.vim'
-			\ , 'python-mode'
-			\ , 'peaksea'
-			\ , 'nerdcommenter'
-			\ , 'nginx.vim'
-			\ , 'neomru.vim'
-			\ , 'vim-easymotion'
-			\ , 'vim-instant-markdown'
-			\ , 'limelight.vim'
-			\ , 'echodoc.vim'
+			\   'mhinz/vim-startify'
+			\ , 'Shougo/dein.vim'
+			\ , 'wsdjeg/dein-ui.vim'
+			\ , 'haya14busa/dein-command.vim'
+			\ , 'Shougo/context_filetype.vim'
+			\ , 'vim-scripts/AutoComplPop'
+			\ , 'daeyun/vim-matlab'
+			\ , 'djoshea/vim-matlab-fold'
+			\ , 'Shougo/unite-outline'
+			\ , 'chemzqm/unite-git-log'
+			\ , 'vim-scripts/ruler.vim'
+			\ , 'vim-scripts/vim-line-numbers'
+			\ , 'python-mode/python-mode'
+			\ , 'vim-scripts/peaksea'
+			\ , 'scrooloose/nerdcommenter'
+			\ , 'nginx/nginx.vim'
+			\ , 'Shougo/neomru.vim'
+			\ , 'easymotion/vim-easymotion'
+			\ , 'suan/vim-instant-markdown'
+			\ , 'junegunn/limelight.vim'
+			\ , 'Shougo/echodoc.vim'
 			\ ]
 """"""""""""""""""""""""""""""""""""""
 """  vim-plug
 call plug#begin(bundle_root)
 
-let s:sep = has('win32') ? '\' : '/'
-for p in plugins
-	let path = expand('<sfile>:p:h') . s:sep  . 'bundle' . s:sep . p 
+" let s:sep = has('win32') ? '\' : '/'
+for path in plugins
 	call plug#(path)
 endfor
 
@@ -37,6 +38,7 @@ Plug 'archerc/vim-leader-guide'
 Plug 'archerc/vimim'
 Plug 'archerc/gvimfullscreen'
 Plug 'chemzqm/denite-git'
+Plug 'diepm/vim-reset-console'
 Plug 'https://github.com/bounceme/remote-viewer' " Browse ssh:// and other remote paths
 " Plug 'https://github.com/kristijanhusak/vim-dirvish-git' " Show git status of each file
 Plug 'https://github.com/fsharpasharp/vim-dirvinist'  " List files defined by projections
