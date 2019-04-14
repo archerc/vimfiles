@@ -1,6 +1,7 @@
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
+			\ , 'Valloric/YouCompleteMe'
 			\ , 'lervag/vimtex'
 			\ , 'Shougo/dein.vim'
 			\ , 'wsdjeg/dein-ui.vim'
