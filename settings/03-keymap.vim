@@ -65,7 +65,7 @@ nmap <leader>eb <Plug>(easymotion-b)
 nmap <leader>eW <Plug>(easymotion-W)
 nmap <leader>eB <Plug>(easymotion-B)
 
-nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/settings/autocmds.vim<CR>
+nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/settings/04-autocmds.vim<CR>
 nmap <leader>fa <Plug>(vim-edit-autocmds)
 
 nnoremap <Plug>(vimfiler-buffer-directory) :VimFilerBufferDir<CR>
@@ -80,16 +80,16 @@ nmap <leader>fd <Plug>(vim-open-vimrc)
 nnoremap <Plug>(vim-init-file) :e $VIM/vimfiles/init.vim<CR>
 nmap <leader>fi <Plug>(vim-init-file)
 
-nnoremap <Plug>(open-vimrc-keymap) :e $VIM/vimfiles/settings/keymap.vim<CR>
+nnoremap <Plug>(open-vimrc-keymap) :e $VIM/vimfiles/settings/03-keymap.vim<CR>
 nmap <leader>fk <Plug>(open-vimrc-keymap)
 
 nnoremap <Plug>(list-file) :LeaderfFile<CR>
 nmap <leader>fl <Plug>(list-file)
 
-nnoremap <Plug>(open-vimrc-options) :edit $VIM/vimfiles/settings/options.vim<CR>
+nnoremap <Plug>(open-vimrc-options) :edit $VIM/vimfiles/settings/01-options.vim<CR>
 nmap <Leader>fo <Plug>(open-vimrc-options)
 
-nnoremap <Plug>(open-vimrc-plugins) :edit $VIM/vimfiles/settings/plugins.vim<CR>
+nnoremap <Plug>(open-vimrc-plugins) :edit $VIM/vimfiles/settings/02-plugins.vim<CR>
 nmap <leader>fp <Plug>(open-vimrc-plugins)
 
 nnoremap <Plug>(recent-file) :LeaderfMru<CR>

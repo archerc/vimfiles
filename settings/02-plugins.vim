@@ -1,6 +1,7 @@
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
+			\ , 'lervag/vimtex'
 			\ , 'Shougo/dein.vim'
 			\ , 'wsdjeg/dein-ui.vim'
 			\ , 'haya14busa/dein-command.vim'
@@ -15,13 +16,13 @@ let plugins = [
 			\ , 'python-mode/python-mode'
 			\ , 'vim-scripts/peaksea'
 			\ , 'scrooloose/nerdcommenter'
-			\ , 'nginx/nginx.vim'
-			\ , 'Shougo/neomru.vim'
+			\ , 'vim-scripts/nginx.vim'
 			\ , 'easymotion/vim-easymotion'
 			\ , 'suan/vim-instant-markdown'
 			\ , 'junegunn/limelight.vim'
 			\ , 'Shougo/echodoc.vim'
 			\ ]
+"			\ , 'Shougo/neomru.vim'
 """"""""""""""""""""""""""""""""""""""
 """  vim-plug
 call plug#begin(bundle_root)
@@ -79,7 +80,7 @@ Plug 'Shougo/vimproc'
 Plug 'Shougo/vimfiler'
 Plug 'Shougo/vimshell'
 Plug 'Shougo/unite.vim'
-"Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/LeaderF-marks'
 " Plug 'Xuyuanp/nerdtree-git-plugin'
