@@ -116,6 +116,12 @@ nmap <leader>ga <Plug>(git-commit-amend)
 nnoremap <Plug>(git-commit) :Gcommit<CR>
 nmap <leader>gc <Plug>(git-commit)
 
+nnoremap <Plug>(git-magit) :Magit<CR>
+nmap <leader>gg <Plug>(git-magit)
+
+nnoremap <Plug>(git-magit-only) :MagitOnly<CR>
+nmap <leader>go <Plug>(git-magit-only)
+
 nnoremap <Plug>(git-pull) :Gpull<CR>
 nmap <leader>gp <Plug>(git-pull)
 
