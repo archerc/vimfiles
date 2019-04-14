@@ -1,3 +1,4 @@
+" vim: ft=vim fenc=utf-8 ts=2 sw=2
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
@@ -40,7 +41,7 @@ Plug 'archerc/vim-leader-guide'
 Plug 'archerc/vimim'
 Plug 'archerc/gvimfullscreen'
 Plug 'chemzqm/denite-git'
-Plug 'diepm/vim-reset-console'
+Plug 'diepm/vim-rest-console'
 Plug 'https://github.com/bounceme/remote-viewer' " Browse ssh:// and other remote paths
 " Plug 'https://github.com/kristijanhusak/vim-dirvish-git' " Show git status of each file
 Plug 'https://github.com/fsharpasharp/vim-dirvinist'  " List files defined by projections
@@ -54,7 +55,7 @@ Plug 'kana/vim-textobj-syntax'
 Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
 Plug 'liuchengxu/vim-which-key'
 Plug 'morhetz/gruvbox'
-" ÑÓ³Ù°´Ğè¼ÓÔØ£¬Ê¹ÓÃµ½ÃüÁîµÄÊ±ºòÔÙ¼ÓÔØ»òÕß´ò¿ª¶ÔÓ¦ÎÄ¼şÀàĞÍ²Å¼ÓÔØ
+" å»¶è¿ŸæŒ‰éœ€åŠ è½½ï¼Œä½¿ç”¨åˆ°å‘½ä»¤çš„æ—¶å€™å†åŠ è½½æˆ–è€…æ‰“å¼€å¯¹åº”æ–‡ä»¶ç±»å‹æ‰åŠ è½½
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'sgur/vim-textobj-parameter'
 Plug 'skywind3000/asyncrun.vim'
@@ -116,32 +117,32 @@ call plug#end()
 
 """"""""""""""""""""""""""""""""""""""
 """ AsyncRun
-" ×Ô¶¯´ò¿ª quickfix window £¬¸ß¶ÈÎª 6
+" è‡ªåŠ¨æ‰“å¼€ quickfix window ï¼Œé«˜åº¦ä¸º 6
 let g:asyncrun_open = 0
 
-" ÈÎÎñ½áÊøÊ±ºòÏìÁåÌáĞÑ
+" ä»»åŠ¡ç»“æŸæ—¶å€™å“é“ƒæé†’
 let g:asyncrun_bell = 1
 
-" ÉèÖÃ F10 ´ò¿ª/¹Ø±Õ Quickfix ´°¿Ú
+" è®¾ç½® F10 æ‰“å¼€/å…³é—­ Quickfix çª—å£
 nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
-" ¶¨Òå F9 Îª±àÒëµ¥ÎÄ¼ş:
+" å®šä¹‰ F9 ä¸ºç¼–è¯‘å•æ–‡ä»¶:
 nnoremap <silent> <F9> :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 
-" Í¬Ê±°´ F5 ÔËĞĞ£º
+" åŒæ—¶æŒ‰ F5 è¿è¡Œï¼š
 " nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 
-" ¶¨Òå°´ F7 ±àÒëÕû¸öÏîÄ¿£º
+" å®šä¹‰æŒ‰ F7 ç¼–è¯‘æ•´ä¸ªé¡¹ç›®ï¼š
 nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
-" ÅäÖÃÓÃ F8 ÔËĞĞµ±Ç°ÏîÄ¿£º
+" é…ç½®ç”¨ F8 è¿è¡Œå½“å‰é¡¹ç›®ï¼š
 nnoremap <silent> <F8> :AsyncRun -cwd=<root> -raw make run <cr>
 
-" °´ F6 Ö´ĞĞ²âÊÔ£º
+" æŒ‰ F6 æ‰§è¡Œæµ‹è¯•ï¼š
 nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
 
-" F4 Îª¸üĞÂ Makefile ÎÄ¼ş£¬Èç¹û²»ÓÃ cmake ¿ÉÒÔºöÂÔ£º
+" F4 ä¸ºæ›´æ–° Makefile æ–‡ä»¶ï¼Œå¦‚æœä¸ç”¨ cmake å¯ä»¥å¿½ç•¥ï¼š
 nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>
 """"""""""""""""""""""""""""""""""""""
 

@@ -10,6 +10,7 @@ set relativenumber
 set colorcolumn=80
 set guifont=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
 set background=dark
+set noswapfile
 try
 	colorscheme gruvbox
 catch
