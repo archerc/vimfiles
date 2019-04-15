@@ -7,17 +7,22 @@ let g:leaderGuide_position = 'botright'
 let g:leaderGuide_map = {
       \   ' ':  {
       \           'name': '<Leader>' 
-      \           ,  'g': {
-      \                     'name': 'Git',
+      \           ,  'b': {
+      \                     'name': 'buffer',
+      \                   }
+      \           ,  'c': {
+      \                     'name': 'Comments',
+      \                     'c'   : ['call feedkeys("\<Plug>NERDCommenterComment")' ,  'Comment' ],
+      \                     ' '   : ['call feedkeys("\<Plug>NERDCommenterToggle")'  ,  'Toggle'  ],
+      \                   }
+      \           ,  'e': {
+      \                     'name': 'easymotion',
       \                   }
       \           ,  'f': {
       \                     'name': 'File',
       \                   }
-      \           ,  'b': {
-      \                     'name': 'buffer',
-      \                   }
-      \           ,  'e': {
-      \                     'name': 'easymotion',
+      \           ,  'g': {
+      \                     'name': 'Git',
       \                   }
       \         }
       \ , ',':  {
