@@ -2,6 +2,10 @@
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
+			\ , 'eugeii/consolas-powerline-vim'
+			\ , 'bling/vim-bufferline'
+			\ , 'vim-airline/vim-airline-themes'
+			\ , 'jlanzarotta/bufexplorer'
 			\ , 'Valloric/YouCompleteMe'
 			\ , 'lervag/vimtex'
 			\ , 'Shougo/dein.vim'
@@ -200,3 +204,4 @@ let g:context_filetype#filetypes.pandoc =
 			\ [{'filetype' : 'tex',
 			\ 	'start' : '^\\begin{align}', 'end' : '\\end{align}'}]
 """"""""""""""""""""""""""""""""""""""
+

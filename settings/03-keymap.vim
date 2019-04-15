@@ -65,6 +65,21 @@ nmap <leader>eb <Plug>(easymotion-b)
 nmap <leader>eW <Plug>(easymotion-W)
 nmap <leader>eB <Plug>(easymotion-B)
 
+nnoremap <Plug>(airline-toggle) :AirlineToggle<CR>
+nmap <leader>at <Plug>(airline-toggle)
+
+nnoremap <Plug>(airline-extensions) :AirlineExtensions<CR>
+nmap <leader>ae <Plug>(airline-extensions)
+
+nnoremap <Plug>(airline-refresh) :AirlineRefresh<CR>
+nmap <leader>ar <Plug>(airline-refresh)
+
+nnoremap <Plug>(airline-theme) :AirlineTheme<CR>
+nmap <leader>as <Plug>(airline-theme)
+
+nnoremap <Plug>(airline-whitespace) :AirlineToggleWhitespace<CR>
+nmap <leader>aw <Plug>(airline-whitespace)
+
 nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/settings/04-autocmds.vim<CR>
 nmap <leader>fa <Plug>(vim-edit-autocmds)
 

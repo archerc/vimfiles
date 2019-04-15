@@ -6,11 +6,12 @@ set lines=60 columns=90
 set number
 set ruler
 set showcmd
+set showtabline=1
 set relativenumber
 set colorcolumn=80
-set guifont=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
 set background=dark
 set noswapfile
+set guifont=IosevkaCC:h14:cANSI:qDRAFT
 try
 	colorscheme gruvbox
 catch
