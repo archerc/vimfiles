@@ -13,8 +13,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#show_tab_nr = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#tabs_label = 't'
-let g:airline#extensions#tabline#buffers_label = 'b'
+let g:airline#extensions#tabline#tabs_label = 'Tabs'
+let g:airline#extensions#tabline#buffers_label = 'Buffers'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#whitespace#symbol = '!'
@@ -45,5 +45,7 @@ let g:airline_extensions = [
 			\, 'ycm'
 			\]
 
-call airline#extensions#load()
-call airline#extensions#load_theme()
+nnoremap <Plug>(reload-airline) :call airline#extensions#load()<CR>
+nnoremap <Plug>(reload-airline-theme) :call airline#extensions#load_theme()<CR>
+nmap <Leader>ta <Plug>(reload-airline)
+nmap <Leader>ts <Plug>(reload-airline-theme)

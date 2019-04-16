@@ -8,6 +8,10 @@ augroup END
 augroup markdown
 	autocmd!
 	autocmd FileType pandoc setlocal conceallevel=0 ts=4 sw=4
-	autocmd BufWritePost *.md :AsyncRun -cwd=<root> make
+	"autocmd BufWritePost *.md :AsyncRun -cwd=<root> make
 augroup END
 
+augroup matlab
+	autocmd!
+	autocmd FileType matlab setlocal ts=4 sw=4
+augroup END
