@@ -12,11 +12,11 @@ set colorcolumn=80
 set background=dark
 set noswapfile
 set guioptions-=T
-" set guifont=IosevkaCC:h14:cANSI:qDRAFT
-set guifont=Consolas_for_Powerline_FixedD:h14:cANSI:qDRAFT
 try
 	colorscheme gruvbox
+	set guifont=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
 catch
 	colorscheme desert
+	set guifont=Consolas_for_Powerline_FixedD:h14:cANSI:qDRAFT
 endtry
 hi ColorColumn guibg=#440000
