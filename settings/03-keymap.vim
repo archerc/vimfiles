@@ -169,7 +169,8 @@ nnoremap <C-k>	<C-W>k
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
 
- 
+nnoremap <Plug>(toggle-fold) @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+nmap z <Plug>(toggle-fold)
 " nnoremap <leader> :<C-U>LeaderGuide ' '<CR>
 " nnoremap <localleader> :<C-U>LeaderGuide ','<CR>
 

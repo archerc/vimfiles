@@ -36,16 +36,23 @@ let g:airline_statusline_ontop = 0
 let g:airline_extensions = [ 
 			\  'ale'
 			\, 'branch'
-			\, 'bufferline'
-			\, 'hunks'
 			\, 'keymap'
 			\, 'languageclient'
 			\, 'tabline'
 			\, 'whitespace'
 			\, 'ycm'
 			\]
+			"\, 'bufferline'
+			"\, 'hunks'
 
 nnoremap <Plug>(reload-airline) :call airline#extensions#load()<CR>
 nnoremap <Plug>(reload-airline-theme) :call airline#extensions#load_theme()<CR>
 nmap <Leader>ta <Plug>(reload-airline)
 nmap <Leader>ts <Plug>(reload-airline-theme)
+
+try
+	call airline#extensions#load()
+	call airline#extensions#load_theme()
+catch
+	echom "call airline#extensions#load() failed"
+endtry
