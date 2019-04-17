@@ -172,6 +172,8 @@ nnoremap [b :bprev<cr>
 nnoremap <Plug>(compiler-make) :AsyncRun -cwd=<root> make<CR>
 nmap <F5> <Plug>(compiler-make)
 
+nnoremap <Plug>(toggle-fold) @=(foldclosed('.') > 0)?'zo':'zc'<CR>
+nmap zt <Plug>(toggle-fold)
  
 " nnoremap <leader> :<C-U>LeaderGuide ' '<CR>
 " nnoremap <localleader> :<C-U>LeaderGuide ','<CR>
