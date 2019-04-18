@@ -39,7 +39,16 @@ autocmd FileType gitcommit  noremap <buffer> <leader> <Plug>leaderguide-buffer
 autocmd BufEnter __Tagbar__  noremap <buffer> <leader> <Plug>leaderguide-buffer
 " for tagbar
 
-autocmd FileType tex let g:leaderGuide_map[','].l = { 'name' : 'vimtex' }
+autocmd FileType tex call s:add_tex_mapping() 
+function! s:add_tex_mapping()
+  if !exists('g:leaderGuide_map')
+    let g:leaderGuide_map = {}
+  endif
+  if !has_key(g:leaderGuide_map, ',')
+    let g:leaderGuide_map[','] = { 'name' : 'local keymap' }
+  endif
+  let g:leaderGuide_map[','].l = { 'name' : 'vimtex' }
+endfunction
 
 let mapleader = ' '
 let maplocalleader = ','
