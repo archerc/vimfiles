@@ -14,9 +14,19 @@ set noswapfile
 set guioptions=grL
 try
 	colorscheme gruvbox
-	set guifont=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
 catch
 	colorscheme desert
-	set guifont=Consolas_for_Powerline_FixedD:h14:cANSI:qDRAFT
 endtry
 hi ColorColumn guibg=#440000
+if !exists('g:init_file')
+	let g:init_file = expand('<sfile>:h') . '\init.json'
+endif
+if filereadable(g:init_file)
+	let options = json_decode(join(readfile(g:init_file)))
+	for [k,v] in items(options)
+		exe 'set '. k . '=' . v
+	endfor
+else
+	echom g:init_file . ' not found'
+endif
+

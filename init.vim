@@ -10,3 +10,6 @@ for file in scripts
     echom   'loading ' . file . ' failed!'
   endtry
 endfor
+if has('python3')
+  py3 print('init.vim loaded!')
+endif
