@@ -15,3 +15,7 @@ augroup matlab
 	autocmd!
 	autocmd FileType matlab setlocal ts=4 sw=4
 augroup END
+
+augroup fugitive
+	autocmd! FileType fugitive inoremap <buffer> <C-CR> <Esc>ZZ
+augroup END
