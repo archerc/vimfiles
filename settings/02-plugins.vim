@@ -2,6 +2,7 @@
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
+			\ , 'chemzqm/vim-easygit'
 			\ , 'eugeii/consolas-powerline-vim'
 			\ , 'bling/vim-bufferline'
 			\ , 'vim-airline/vim-airline-themes'
