@@ -28,6 +28,7 @@ if filereadable(g:init_file)
 		exe 'set '. k . '=' . v
 	endfor
 else
+	set gfn=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
 	echom g:init_file . ' not found'
 endif
 
