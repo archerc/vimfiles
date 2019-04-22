@@ -53,6 +53,7 @@ nmap <Leader>ts <Plug>(reload-airline-theme)
 try
 	call airline#extensions#load()
 	call airline#extensions#load_theme()
+	py3 print('airline loaded')
 catch
 	echom "call airline#extensions#load() failed"
 endtry

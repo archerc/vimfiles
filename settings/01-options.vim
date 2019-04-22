@@ -2,10 +2,11 @@ set nocompatible
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb18030
 set termencoding=cp936
-"set lines=35 columns=158
+set lines=35 columns=140
 set number
 set ruler
 set showcmd
+set cmdheight=2
 set showtabline=1
 set relativenumber
 set colorcolumn=80

@@ -17,5 +17,6 @@ augroup matlab
 augroup END
 
 augroup fugitive
-	autocmd! FileType fugitive inoremap <buffer> <C-CR> <Esc>ZZ
+	autocmd! FileType fugitive inoremap <buffer> <C-Enter> <Esc>ZZ
+	autocmd! FileType gitcommit inoremap <buffer> <C-Enter> <Esc>ZZ
 augroup END

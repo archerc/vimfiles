@@ -7,6 +7,9 @@ let g:leaderGuide_position = 'botright'
 let g:leaderGuide_map = {
       \   ' ':  {
       \           'name': '<Leader>' 
+      \           ,  'a': {
+      \                     'name': 'airline',
+      \                   }
       \           ,  'b': {
       \                     'name': 'buffer',
       \                   }
@@ -94,11 +97,28 @@ nmap <leader>as <Plug>(airline-theme)
 nnoremap <Plug>(airline-whitespace) :AirlineToggleWhitespace<CR>
 nmap <leader>aw <Plug>(airline-whitespace)
 
+let g:Lf_ShortcutB = '<leader>bf'
+nnoremap <Plug>(buffer-list-leaderF) :<C-u>LeaderfBuffer<CR>
+nmap <leader>bf <Plug>(buffer-list-leaderF)
+
+nnoremap <Plug>(buffer-next) :bnext<CR>
+nmap <leader>bn <Plug>(buffer-next)
+
+nnoremap <Plug>(buffer-previous) :bprev<CR>
+nmap <leader>bp <Plug>(buffer-previous)
+
+nnoremap <Plug>(buffer-list-unite) :Unite buffer -no-start-insert<CR>
+nmap <leader>bu <Plug>(buffer-list-unite)
+
+let g:Lf_ShortcutF = '<C-P>'
 nnoremap <Plug>(vim-edit-autocmds) :edit $VIM/vimfiles/settings/04-autocmds.vim<CR>
 nmap <leader>fa <Plug>(vim-edit-autocmds)
 
 nnoremap <Plug>(vimfiler-buffer-directory) :VimFilerBufferDir<CR>
 nmap <leader>fb <Plug>(vimfiler-buffer-directory)
+
+nnoremap <Plug>(vimfiler-buffer-directory-other) :VimFilerBufferDir -split<CR>
+nmap <leader>fB <Plug>(vimfiler-buffer-directory-other)
 
 nnoremap <Plug>(vimfiler-current-directory) :VimFiler<CR>
 nmap <leader>fc <Plug>(vimfiler-current-directory)
@@ -129,6 +149,9 @@ nmap <leader>fs <Plug>(vim-reload-file)
 
 nnoremap <Plug>(file-treeview) :NERDTreeToggle<CR>
 nmap <leader>ft <Plug>(file-treeview)
+
+nnoremap <Plug>(open-vimrc-unite) :edit $VIM/vimfiles/settings/10-unite.vim<CR>
+nmap <Leader>fu <Plug>(open-vimrc-unite)
 
 nnoremap <Plug>(write-file) :w<CR>
 nmap <leader>fw <Plug>(write-file)

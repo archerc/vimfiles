@@ -287,7 +287,7 @@ snippet prod "product" w
 \prod_{${1:n=${2:1}}}^{${3:\infty}} ${4:${VISUAL}} $0
 endsnippet
 
-snippet part "d/dx" w
+snippet deriv "d/dx" w
 \frac{\partial ${1:V}}{\partial ${2:x}} $0
 endsnippet
 
@@ -552,7 +552,7 @@ snippet nnn "bigcap" iA
 endsnippet
 
 snippet EX "expectation" iA
-\mathbb{E}[$1]$0
+\mathbb{E}\left[$1\right]$0
 endsnippet
 
 snippet OO "emptyset" iA
@@ -606,6 +606,11 @@ snippet bigfun "Big function" iA
 	$1: $2 &\longrightarrow $3 \\\\
 	$4 &\longmapsto $1($4) = $0
 .\end{align*}
+endsnippet
+
+context "math()"
+snippet vec "vector" iA
+\mathbf{$1}$0
 endsnippet
 
 snippet cvec "column vector" iA

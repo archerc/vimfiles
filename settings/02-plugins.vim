@@ -2,6 +2,7 @@
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
+			\ , 'jceb/vim-orgmode'
 			\ , 'eugeii/consolas-powerline-vim'
 			\ , 'bling/vim-bufferline'
 			\ , 'vim-airline/vim-airline-themes'
@@ -206,3 +207,13 @@ let g:context_filetype#filetypes.pandoc =
 			\ 	'start' : '^\\begin{align}', 'end' : '\\end{align}'}]
 """"""""""""""""""""""""""""""""""""""
 
+""""""""""""""""""""""""""""""""""""""
+""" Startify
+let g:startify_lists = [
+			\ { 'type': 'files',     'header': ['   MRU']            },
+			\ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+			\ { 'type': 'sessions',  'header': ['   Sessions']       },
+			\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+			\ { 'type': 'commands',  'header': ['   Commands']       },
+			\ ]
+""""""""""""""""""""""""""""""""""""""

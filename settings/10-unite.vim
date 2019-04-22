@@ -25,6 +25,9 @@ nmap <leader>ug <Plug>(unite-gitlog)
 nnoremap <Plug>(unite-lines) :Unite -start-insert line<CR>
 nmap <leader>ul <Plug>(unite-lines)
 
+nnoremap <Plug>(unite-outline) :Unite outline -no-start-insert<CR>
+nmap <leader>uo <Plug>(unite-outline)
+
 nnoremap <Plug>(unite-sources) :Unite -start-insert<CR>
 nmap <leader>us <Plug>(unite-sources)
 
