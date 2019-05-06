@@ -1,0 +1,4 @@
+pymode	python-mode.cnx	/*pymode*
+pymode.cnx	python-mode.cnx	/*pymode.cnx*
+python-mode	python-mode.cnx	/*python-mode*
+python-mode.cnx	python-mode.cnx	/*python-mode.cnx*

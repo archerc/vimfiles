@@ -5,7 +5,7 @@ let scripts = glob(vimfiles . '/settings/[0-9][0-9]-*.vim', v:false, v:true)
 let scripts = filter(scripts, 'filereadable(v:val)')
 for file in scripts
   if has('python3')
-    py3 print('This is ' + vim.eval('file'))
+    "py3 print('This is ' + vim.eval('file'))
   endif
   try
     if filereadable(file)

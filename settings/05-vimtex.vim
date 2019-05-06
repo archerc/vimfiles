@@ -3,9 +3,7 @@ let g:tex_flavor = 'pdflatex'
 set conceallevel=1
 let g:tex_conceal = 'abdmg'
 let g:vimtex_quickfix_mode = 1
-
 let g:vimtex_compiler_enabled = 1
-
 let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_compiler_latexmk = {
         \ 'backend' : 'jobs',

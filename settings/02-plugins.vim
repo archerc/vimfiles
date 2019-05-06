@@ -2,6 +2,7 @@
 let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
+			\ , 'mattn/libcallex-vim'
 			\ , 'jceb/vim-orgmode'
 			\ , 'geratheon/vim-translate'
 			\ , 'chemzqm/vim-easygit'

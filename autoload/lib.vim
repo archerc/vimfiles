@@ -36,6 +36,10 @@ let s:libcurl = glob($VIM . '/vim81/libcurl-4.dll')
 if filereadable(s:libcurl)
 	let s:dll['libcurl'] = s:libcurl
 endif
+let s:everything = glob(fnamemodify(expand('<sfile>'), ':p:h:h') . '/lib/everything.dll')
+if filereadable(s:everything)
+	let s:dll['everything'] = s:everything
+endif
 
 function! lib#call(name, argument) abort
 	if has_key(s:dll, name)
