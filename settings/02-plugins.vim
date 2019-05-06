@@ -3,6 +3,7 @@ let bundle_root = glob($VIM . '/vimfiles/bundle')
 let plugins = [ 
 			\   'mhinz/vim-startify'
 			\ , 'jceb/vim-orgmode'
+			\ , 'geratheon/vim-translate'
 			\ , 'chemzqm/vim-easygit'
 			\ , 'eugeii/consolas-powerline-vim'
 			\ , 'bling/vim-bufferline'
@@ -217,4 +218,10 @@ let g:startify_lists = [
 			\ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
 			\ { 'type': 'commands',  'header': ['   Commands']       },
 			\ ]
+""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""
+""" translate
+let g:translate_src = "en"
+let g:translate_dst = "cn"
 """"""""""""""""""""""""""""""""""""""
