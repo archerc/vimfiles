@@ -20,3 +20,8 @@ augroup fugitive
 	autocmd! FileType fugitive inoremap <buffer> <C-Enter> <Esc>ZZ
 	autocmd! FileType gitcommit inoremap <buffer> <C-Enter> <Esc>ZZ
 augroup END
+
+augroup tikz
+	autocmd!
+	autocmd! BufReadPost *.tikz let b:vimtex_main='tizkmain.tex'
+augroup END
