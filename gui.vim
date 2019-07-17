@@ -10,7 +10,7 @@
 let g:guifont = api#SetFont('IosevkaCC:h14:cANSI:qDRAFT')
 let g:guifont = api#SetFont('Inziu_Iosevka_SC:h14:cANSI:qDRAFT')
 set lines=38 columns=120
-winpos 90 0
+" winpos 90 0
 colorscheme evening
 
-echom expand('<sfile>') . ' is loaded'
+" vim: ft=vim ts=2 sw=2 et

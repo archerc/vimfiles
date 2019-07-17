@@ -19,14 +19,26 @@ endfunction
 
 function! on#VimScriptModified(file)
     execute 'source ' . a:file 
-    echom 'Vim script(' . a:file . ') is sourced'
+    call api#debug('Vim script(' . a:file . ') is sourced')
 endfunction
 
 function! on#Modified(file)
     " echom 'OnModified'
-    echom a:file . ' is saved'
+    call api#debug(a:file . ' is saved')
 endfunction
 
 function! on#VimEnter()
-    return api#BindKeys()
+    syntax on
+    cd $VIM/vimfiles
+    call api#BindKeys()
+    edit $VIM/vimfiles/init.vim
 endfunction
+
+function! on#GuiEnter()
+    let g:guifont = api#SetFont('IosevkaCC:h14:cANSI:qDRAFT')
+    let g:guifont = api#SetFont('Inziu_Iosevka_SC:h14:cANSI:qDRAFT')
+    set lines=30 columns=120
+    " winpos 90 0
+    colorscheme evening
+endfunction
+

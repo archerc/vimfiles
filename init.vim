@@ -8,9 +8,10 @@
 " ============================================================================
 
 """ Options
+set laststatus=2
 set number
 set relativenumber
-
+filetype plugin indent on
 """ Keys
 call api#BindKeys()
 
@@ -25,6 +26,9 @@ augroup events
     autocmd BufWritePost 	vimrc,*.vim 	:call on#VimScriptModified(expand('<afile>'))
     autocmd BufWritePost  *   :call on#Modified(expand('<afile>'))
     autocmd VimEnter      *   :call on#VimEnter()
+    autocmd GuiEnter      *   :call on#GuiEnter()
 augroup END
+
+let vimrc = vimrc#load($VIM . '/vimfiles/init.json')
 
 " vim: ft=vim ts=2 sw=2 et fdm=marker 
