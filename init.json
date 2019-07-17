@@ -1,1 +1,13 @@
-{ "options": [], "keys": [] }
+{ 
+	"options": {
+		"number": true,
+		"relativenumber": true
+	},
+	"keys": {},
+	"plugins": [
+		{
+			"name": "dein.vim",
+			"url": "https://github.com/"
+		}
+	]
+}
