@@ -25,3 +25,15 @@ function! api#BindKeys()
     inoremap	<C-s>	<Esc>:w<CR>
     nnoremap	<F5>	<Esc>:source %<CR>
 endfunction
+
+function! api#SetFont(font)
+    let s:saved_font = &gfn
+    try 
+        let &gfn = a:font
+    catch
+        if &gfn != a:font
+            let &gfn = s:saved_font
+        endif
+    endtry
+    return &gfn
+endfunction

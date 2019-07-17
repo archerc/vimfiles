@@ -7,7 +7,8 @@
 " License:     Apache License, Version 2.0
 " ============================================================================
 
-set guifont=Inziu_Iosevka_SC:h12:cANSI:qDRAFT
+let g:guifont = api#SetFont('IosevkaCC:h14:cANSI:qDRAFT')
+let g:guifont = api#SetFont('Inziu_Iosevka_SC:h14:cANSI:qDRAFT')
 set lines=38 columns=120
 winpos 90 0
 colorscheme evening
