@@ -1,25 +1,30 @@
-" vim: ft=vim ts=2 sw=2 et
-let init_script = expand('<sfile>')
-let vimfiles = fnamemodify(init_script, ':p:h')
-let scripts = glob(vimfiles . '/settings/[0-9][0-9]-*.vim', v:false, v:true)
-let scripts = filter(scripts, 'filereadable(v:val)')
-for file in scripts
-  if has('python3')
-    "py3 print('This is ' + vim.eval('file'))
-  endif
-  try
-    if filereadable(file)
-      execute 'source ' . file
-    else
-      if has('python3')
-        py3 print(vim.variables('file') . ' loading ')
-      endif
-      echohl  file . 'does not exist!'
-    endif
-  catch
-    "echoerr 'loading ' . file . ' failed!'
-  endtry
-endfor
-if has('python3')
-  "py3 print('init.vim loaded!')
-endif
+" ============================================================================
+" File:        init.vim
+" Description: vimrc
+" Author:      archerC <brightcxl@gmail.com>
+" Website:     https://github.com/archerC
+" Note:
+" License:     Apache License, Version 2.0
+" ============================================================================
+
+""" Options
+set number
+set relativenumber
+
+""" Keys
+call api#BindKeys()
+
+""" AutoCommands
+augroup vim_filetype
+    autocmd!
+    autocmd FileType  	vim 	    :call on#VimScript(expand('<afile>'))
+augroup END
+
+augroup events
+    autocmd!
+    autocmd BufWritePost 	vimrc,*.vim 	:call on#VimScriptModified(expand('<afile>'))
+    autocmd BufWritePost  *   :call on#Modified(expand('<afile>'))
+    autocmd VimEnter      *   :call on#VimEnter()
+augroup END
+
+" vim: ft=vim ts=2 sw=2 et fdm=marker 
