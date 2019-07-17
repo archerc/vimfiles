@@ -1,1 +1,15 @@
-{ "options": [], "keys": [] }
+{ 
+	"options": {
+		"number": true,
+		"relativenumber": true,
+		"autoindent": true,
+		"smartindent": true
+	},
+	"keys": {},
+	"plugins": [
+		{
+			"name": "dein.vim",
+			"url": "https://github.com/"
+		}
+	]
+}
