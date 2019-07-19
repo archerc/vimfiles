@@ -17,8 +17,19 @@ let s:default_plugin = {
       \ "url": "",
       \ }
 
+let g:plugin#directory_prefix = api#expand($VIM . '/vimfiles/bundle')
+function! s:default_plugin.directory() dict
+  return g:plugin#directory_prefix . '/' . self.name
+endfunction
+
 function! s:default_plugin.update() dict
-  call plugin#download(self.url, self.directory)
+  let directory = self.directory()
+  let options = get(self, 'options', {"cwd": directory})
+  if !isdirectory(directory) 
+    call mkdir(directory)
+    let self.job = job_start('git init', options)
+  endif
+  let self.job = plugin#download(self.url, directory, options)
 endfunction
 
 let s:plugin_class = {
@@ -33,27 +44,14 @@ endfunction
 
 function! plugin#new(self) abort
   let plugin = extend(a:self, s:default_plugin, "keep")
-  let plugin.directory = plugin#directory(plugin)
-  if has_key(plugin, 'update')
-    call plugin.update()
-  else
-    echom 'plugin object has no update method'
-  endif
-  " if !isdirectory(plugin.directory) && !empty(plugin.url)
-  "   call mkdir(plugin.directory)
-  "   call plugin#download(plugin.url, plugin.directory)
-  " endif
+  call plugin.update()
   let g:available_plugins[plugin.name] = plugin
   return plugin
 endfunction
 
-let g:plugin#directory_prefix = api#expand($VIM . '/vimfiles/bundle')
-function! plugin#directory(plugin) abort
-  return g:plugin#directory_prefix . '/' . a:plugin.name
-endfunction
-
-function! plugin#download(url, output) abort
-  call api#debug('downloading ' . a:url . ' to ' . a:output)
+function! plugin#download(url, output, options) abort
+  let cmd = 'git fetch ' . a:url . ''
+  return job_start(cmd, extend({"cwd": a:output}, a:options))
 endfunction
 
 " vim: ft=vim ts=2 sw=2 et

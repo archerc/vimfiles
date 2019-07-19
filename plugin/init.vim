@@ -7,13 +7,11 @@
 " License:     Apache License, Version 2.0
 " ============================================================================
 
-""" Options
-set laststatus=2
-set number
-set relativenumber
-filetype plugin indent on
-""" Keys
-call api#BindKeys()
+if exists('g:loaded_init')
+  call api#debug('reload init.vim')
+  finish
+endif
+let g:loaded_init = 1
 
 """ AutoCommands
 augroup vim_filetype
@@ -29,6 +27,7 @@ augroup events
     autocmd GuiEnter      *   :call on#GuiEnter()
 augroup END
 
-let vimrc = vimrc#load($VIM . '/vimfiles/init.json')
+call pathogen#infect()
+call api#debug('init.vim loaded.')
 
 " vim: ft=vim ts=2 sw=2 et fdm=marker 

@@ -18,7 +18,7 @@ function! on#VimScript(file)
 endfunction
 
 function! on#VimScriptModified(file)
-    execute 'source ' . a:file 
+    " execute 'source ' . a:file 
     call api#debug('Vim script(' . a:file . ') is sourced')
 endfunction
 
@@ -28,17 +28,14 @@ function! on#Modified(file)
 endfunction
 
 function! on#VimEnter()
-    syntax on
-    cd $VIM/vimfiles
-    call api#BindKeys()
-    edit $VIM/vimfiles/init.vim
+    call api#debug('Vim Entering')
 endfunction
 
 function! on#GuiEnter()
     let g:guifont = api#SetFont('IosevkaCC:h14:cANSI:qDRAFT')
     let g:guifont = api#SetFont('Inziu_Iosevka_SC:h14:cANSI:qDRAFT')
-    set lines=30 columns=120
     " winpos 90 0
     colorscheme evening
+    let g:vimrc = vimrc#load($VIM . '/vimfiles/init.json')
 endfunction
 

@@ -31,14 +31,38 @@ function! api#has_job() abort
         \ || (has('patch-8.0.0027') && has('job'))
 endfunction
 
+function! api#has_python3() abort
+	if !has('python3')
+    let g:pythonthreehome = api#expand($VIM . "/python-3.7.4-embed-amd64")
+    if isdirectory(g:pythonthreehome)
+      let &pythonthreehome = g:pythonthreehome
+      let g:pythonthreedll = api#expand(&pythonthreehome . "/python37.dll")
+      if filereadable(g:pythonthreedll)
+        let &pythonthreedll = g:pythonthreedll
+      endif
+    endif
+  endif
+  return has('python3')
+endfunction
+
+let g:debug_output = $VIM . '/vimfiles/debug.log'
+let g:debug_verbose = v:false
+
 function! api#debug(message)
-	if has('python3')
-		py3 print(a:message)
-    else
+  if api#has_python3()
+    if g:debug_verbose 
+      py3 <<EOF
+debug_output = open(vim.eval('g:debug_output'), mode='a')
+print(vim.eval('a:message'), file=debug_output)
+EOF
+    endif
+  else
+    if g:debug_verbose 
       echohl Debug
       echom a:message
       echohl None
-	endif
+    endif
+  endif
 endfunction
 
 function! api#error(messages) abort
@@ -198,21 +222,21 @@ function! api#set_class(name, class) abort
 endfunction
 
 function! api#BindKeys()
-    nnoremap	<C-s>	:w<CR>
-    inoremap	<C-s>	<Esc>:w<CR>
-    nnoremap	<F5>	<Esc>:source %<CR>
+  nnoremap	<C-s>	:w<CR>
+  inoremap	<C-s>	<Esc>:w<CR>
+  nnoremap	<F5>	<Esc>:source %<CR>
 endfunction
 
 function! api#SetFont(font)
-    let s:saved_font = &gfn
-    try 
-        let &gfn = a:font
-    catch
-        if &gfn != a:font
-            let &gfn = s:saved_font
-        endif
-    endtry
-    return &gfn
+  let s:saved_font = &gfn
+  try 
+    let &gfn = a:font
+  catch
+    if &gfn != a:font
+      let &gfn = s:saved_font
+    endif
+  endtry
+  return &gfn
 endfunction
 
 " vim: ft=vim ts=2 sw=2 et

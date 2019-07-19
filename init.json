@@ -9,7 +9,7 @@
 	"plugins": [
 		{
 			"name": "dein.vim",
-			"url": "https://github.com/"
+			"url": "https://github.com/Shougo/dein.vim"
 		}
 	]
 }
