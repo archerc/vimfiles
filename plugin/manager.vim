@@ -11,14 +11,26 @@ if exists('g:loaded_manager') && g:loaded_manager
   finish
 endif
 
-let s:all_available_plugin_names = keys(manager#all_available_plugins())
-command  -nargs=1 -complete=customlist,<SID>complete_plugins LoadPlugin call <SID>load_plugin(<f-args>)
+let g:disabled_plugins = [
+      \ 'vim-leader-guide',
+      \ ]
 
-function! s:load_plugin(name) abort
-  try
-    let plugin = manager#get_plugin(a:name)
+let s:all_available_plugin_names = keys(manager#all_available_plugins())
+command -bang -nargs=1 -complete=custom,<SID>complete_plugins_text LoadPlugin call <SID>load_plugin(<bang>0, <q-args>)
+" command -bang -nargs=1 -complete=customlist,<SID>complete_plugins LoadPlugin call <SID>load_plugin(<bang>0, <q-args>)
+
+function! s:load_plugin(force, name) abort
+  let plugin = manager#get_plugin(a:name)
+  if a:force || plugin.is_enabled()
+    " echom 'loading plugin ' . a:name 
     call plugin.load()
-  endtry
+  else
+    echom 'plugin ' . a:name . ' has been disabled in disabled_plugins'
+  endif
+endfunction
+
+function! s:complete_plugins_text(ArgLead, CmdLine, CursorPos) abort
+  return join(s:all_available_plugin_names, "\n")
 endfunction
 
 function! s:complete_plugins(ArgLead, CmdLine, CursorPos) abort
@@ -28,7 +40,7 @@ endfunction
 command  LoadAllPlugins call <SID>load_all_plugins()
 function! s:load_all_plugins() abort
   for name in s:all_available_plugin_names 
-    call s:load_plugin(name)
+    call s:load_plugin(0, name)
   endfor
 endfunction
 

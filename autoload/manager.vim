@@ -33,35 +33,47 @@ function! s:set_url(channel, url) dict
   let self.url = a:url
 endfunction
 
-let g:disabled_plugins = get(g:, 'disabled_plugins', [])
 let s:loaded_plugins = []
-let s:disabled_plugins = []
 function! s:load_plugin() dict
   " echom 'loading ' . self.name
-  if has_key(self, 'name') && index(g:disabled_plugins, self.name) < 0 
-        \ && has_key(self, 'directory') && isdirectory(self.directory)
+  if has_key(self, 'directory') && isdirectory(self.directory)
     let files = split(glob(self.directory . '/plugin/*.vim'), '\n')
     try
       for file in files
         "echom 'loading file ' . file . ' from plugin ' . self.name 
         exec 'source ' . file
       endfor
-      call add(s:loaded_plugins, self.name)
+      if index(s:loaded_plugins, self.name) < 0
+        call add(s:loaded_plugins, self.name)
+      endif
     catch
-      call add(s:disabled_plugins, self.name)
+      call manager#disable_plugin(self.name)
       echom 'failed loading file ' . file . ' from plugin ' . self.name 
     endtry
   endif
 endfunction
 
+let s:disabled_plugins = []
+function! s:disable_plugin() dict
+  call manager#disable_plugin(self.name)
+endfunction
+
+function! s:is_plugin_enabled() dict
+  return index(s:disabled_plugins, self.name) < 0 
+        \ && ( !has_key(g:, 'disabled_plugins') 
+        \      || index(g:disabled_plugins, self.name) < 0)
+endfunction
+
 let s:all_available_plugins = {}
-function! manager#new_plugin(...) abort
-  if a:0 > 0 && isdirectory(a:1)
+function! manager#new_plugin(directory) abort
+  if isdirectory(a:directory)
     let plugin = {
           \ 'set_url': function('<SID>set_url'),
           \ 'load': function('<SID>load_plugin'),
+          \ 'disable': function('<SID>disable_plugin'),
+          \ 'is_enabled': function('<SID>is_plugin_enabled'),
           \ }
-    let plugin.directory = a:1
+    let plugin.directory = a:directory
     let plugin.name = fnamemodify(plugin.directory, ":t")
     let cmd = 'git --git-dir=' . plugin.directory . '\.git remote get-url origin'
     if exists('*job_start')
@@ -72,13 +84,19 @@ function! manager#new_plugin(...) abort
     let s:all_available_plugins[plugin.name] = plugin
     return plugin
   else
-    echoerr 'directory ' . a:1 . ' not found'
+    echoerr 'directory ' . a:directory . ' not found'
   endif
 endfunction
 
 function! manager#list_directory(dir) abort
   if isdirectory(a:dir)
     return split(globpath(a:dir, '*'), '\n')
+  endif
+endfunction
+
+function! manager#disable_plugin(name) abort
+  if index(s:disabled_plugins, a:name) < 0
+    call add(s:disabled_plugins, a:name)
   endif
 endfunction
 
@@ -98,7 +116,7 @@ function manager#all_available_plugins(...) abort
   return s:all_available_plugins
 endfunction
 
-function manager#disabled_plugins() abort
+function manager#disabled_plugin_list() abort
   return s:disabled_plugins
 endfunction
 
