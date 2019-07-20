@@ -7,14 +7,14 @@
 " License:     Apache License, Version 2.0
 " ============================================================================
 
-if exists('g:loaded_options')
+if exists('g:did_plugin_options')
   finish
 endif
 
 set nocompatible
 set encoding=utf-8
+set termencoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,gb18030
-set termencoding=cp936
 set lines=45 columns=80
 set number
 set ruler
@@ -30,24 +30,30 @@ set helplang=cn
 filetype plugin indent on
 syntax on
 
-try
+function! SetFont() abort
+  try
     set gfn=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
-catch
+  catch
     set gfn=Lucida_Console:h14:cANSI:qDRAFT
-endtry
+  endtry
+endfunction
 
-try
-	colorscheme gruvbox
-catch
-	colorscheme desert
-endtry
+function! SetColor() abort
+  try
+    colorscheme gruvbox
+  catch
+    colorscheme desert
+  endtry
+endfunction
+
+augroup vim_options
+  au!
+  au VimEnter * call SetFont()
+  au VimEnter * call SetColor()
+augroup END
 
 let g:vimtex_view_general_viewer = 'SumatraPDF.exe'
 
-" ultisnips
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsSnippetsDir = $VIM . '/vimfiles/UltiSnips'
+let g:did_plugin_options = 1
 
-let g:loaded_options = 1
-
-" vim: ft=vim ts=2 sw=2 et fenc=utf-8
+" vim: ft=vim ts=2 sw=2 et fenc=utf-8 fdm=indent

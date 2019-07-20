@@ -35,12 +35,19 @@ endfunction
 command -bang LoadAllPlugins call <SID>load_all_plugins(<bang>0)
 function! s:load_all_plugins(force) abort
   for name in s:all_available_plugin_names 
-    if !s:load_plugin(name, 0) && a:force 
-          \ && index(g:disabled_plugins, name) < 0
-      call add(g:disabled_plugins, name)
+    let plugin = manager#get_plugin(name)
+    if (plugin.is_enabled() 
+          \ && index(g:disabled_plugins, name) < 0 
+          \ && index(s:plugins_depends_on_python3, name) < 0 )
+      call plugin.load()
     endif
   endfor
 endfunction
+
+augroup plugin_manager
+  autocmd!
+  autocmd VimEnter *  LoadAllPlugins
+augroup END
 
 nmap <Plug>(load-plugins) :call <SID>load_all_plugins(0)<CR>
 

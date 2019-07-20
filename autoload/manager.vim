@@ -11,23 +11,7 @@ if exists('g:did_autoload_manager')
   finish
 endif
 
-let g:python3_home = get(g:, 'python3_home', expand($VIM . '/Python3.7.3'))
-let g:python3_dll = get(g:, 'python3_dll', expand(g:python3_home . '/python37.dll'))
 let g:bundle = get(g:, 'bundle', expand($VIM . '/vimfiles/bundle'))
-
-function! manager#enable_python(...) abort
-  if !has('python3')
-    let python3_home = (a:0 > 0) ? a:1 : g:python3_home 
-    if isdirectory(python3_home)
-      let python3_dll = expand(python3_home . '/python37.dll')
-      if filereadable(python3_dll)
-        let &pythonthreehome = python3_home
-        let &pythonthreedll = python3_dll
-      endif
-    endif
-  endif
-  return has('python3')
-endfunction
 
 function! s:set_url(channel, url) dict
   let self.url = a:url
@@ -46,14 +30,16 @@ endfunction
 let s:loaded_plugins = []
 function! s:load_plugin() dict
   " echom 'loading ' . self.name
-  if has_key(self, 'directory') && isdirectory(self.directory)
+  if has_key(self, 'directory') " && isdirectory(self.directory)
     try
-      exec 'set rtp+=' . self.directory
+      " call AddToRuntimePath(self.directory)
+      exec "set rtp+=" . self.directory
       for file in filter(self.scripts, 'filereadable(v:val)')
-        "echom 'loading file ' . file . ' from plugin ' . self.name 
+        " echom 'loading file ' . file . ' from plugin ' . self.name 
         exec 'source ' . file
       endfor
       if index(s:loaded_plugins, self.name) < 0
+        " echom 'loading plugin ' . self.name . 'sucess'
         call add(s:loaded_plugins, self.name)
       endif
     catch
