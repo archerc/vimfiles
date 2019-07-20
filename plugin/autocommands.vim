@@ -1,5 +1,5 @@
 " ============================================================================
-" File:        init.vim
+" File:        autocommands.vim
 " Description: vimrc
 " Author:      archerC <brightcxl@gmail.com>
 " Website:     https://github.com/archerC
@@ -7,11 +7,9 @@
 " License:     Apache License, Version 2.0
 " ============================================================================
 
-if exists('g:loaded_init')
-  call api#debug('reload init.vim')
+if exists('g:loaded_autocmds') && g:loaded_autocmds
   finish
 endif
-let g:loaded_init = 1
 
 """ AutoCommands
 augroup vim_filetype
@@ -22,12 +20,11 @@ augroup END
 augroup events
     autocmd!
     autocmd BufWritePost 	vimrc,*.vim 	:call on#VimScriptModified(expand('<afile>'))
-    autocmd BufWritePost  *   :call on#Modified(expand('<afile>'))
+    autocmd VimEnter      *   :call pathogen#infect()
     autocmd VimEnter      *   :call on#VimEnter()
     autocmd GuiEnter      *   :call on#GuiEnter()
 augroup END
 
-call pathogen#infect()
-call api#debug('init.vim loaded.')
+let g:loaded_autocmds = 1
 
 " vim: ft=vim ts=2 sw=2 et fdm=marker 

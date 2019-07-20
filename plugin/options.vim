@@ -26,6 +26,7 @@ set colorcolumn=80
 set background=dark
 set noswapfile
 set guioptions=grL
+set helplang=cn
 filetype plugin indent on
 syntax on
 
