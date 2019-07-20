@@ -11,9 +11,7 @@ if exists('g:loaded_manager') && g:loaded_manager
   finish
 endif
 
-let g:disabled_plugins = [
-      \ 'vim-leader-guide',
-      \ ]
+let g:disabled_plugins = []
 
 let s:all_available_plugin_names = keys(manager#all_available_plugins())
 command -bang -nargs=1 -complete=custom,<SID>complete_plugins_text LoadPlugin call <SID>load_plugin(<bang>0, <q-args>)
@@ -37,7 +35,7 @@ function! s:complete_plugins(ArgLead, CmdLine, CursorPos) abort
   return s:all_available_plugin_names 
 endfunction
 
-command  LoadAllPlugins call <SID>load_all_plugins()
+"command  LoadAllPlugins call <SID>load_all_plugins()
 function! s:load_all_plugins() abort
   for name in s:all_available_plugin_names 
     call s:load_plugin(0, name)

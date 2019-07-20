@@ -33,13 +33,23 @@ function! s:set_url(channel, url) dict
   let self.url = a:url
 endfunction
 
+function! s:get_url() dict
+  let cmd = 'git --git-dir=' . self.directory . '\.git remote get-url origin'
+  if exists('*job_start')
+    let job = job_start(cmd, {'out_cb': self.set_url})
+  else
+    let self.url = split(system(cmd), '\n')[0]
+    return self.url
+  endif
+endfunction
+
 let s:loaded_plugins = []
 function! s:load_plugin() dict
   " echom 'loading ' . self.name
   if has_key(self, 'directory') && isdirectory(self.directory)
-    let files = split(glob(self.directory . '/plugin/*.vim'), '\n')
     try
-      for file in files
+      exec 'set rtp+=' . self.directory
+      for file in filter(self.scripts, 'filereadable(v:val)')
         "echom 'loading file ' . file . ' from plugin ' . self.name 
         exec 'source ' . file
       endfor
@@ -48,7 +58,7 @@ function! s:load_plugin() dict
       endif
     catch
       call manager#disable_plugin(self.name)
-      echom 'failed loading file ' . file . ' from plugin ' . self.name 
+      echom 'failed load plugin ' . self.name . ': '  v:exception 
     endtry
   endif
 endfunction
@@ -69,18 +79,15 @@ function! manager#new_plugin(directory) abort
   if isdirectory(a:directory)
     let plugin = {
           \ 'set_url': function('<SID>set_url'),
+          \ 'get_url': function('<SID>get_url'),
           \ 'load': function('<SID>load_plugin'),
           \ 'disable': function('<SID>disable_plugin'),
           \ 'is_enabled': function('<SID>is_plugin_enabled'),
           \ }
     let plugin.directory = a:directory
     let plugin.name = fnamemodify(plugin.directory, ":t")
-    let cmd = 'git --git-dir=' . plugin.directory . '\.git remote get-url origin'
-    if exists('*job_start')
-      let job = job_start(cmd, {'out_cb': plugin.set_url})
-    else
-      let plugin.url = split(system(cmd), '\n')[0]
-    endif
+    let plugin.scripts = manager#list_directory(
+          \ plugin.directory . '/plugin', '*.vim')
     let s:all_available_plugins[plugin.name] = plugin
     return plugin
   else
@@ -88,9 +95,12 @@ function! manager#new_plugin(directory) abort
   endif
 endfunction
 
-function! manager#list_directory(dir) abort
+function! manager#list_directory(dir, ...) abort
   if isdirectory(a:dir)
-    return split(globpath(a:dir, '*'), '\n')
+    let pattern = (a:0 > 0) ? a:1 : '*'
+    return split(globpath(a:dir, pattern), '\n')
+  else
+    return []
   endif
 endfunction
 
@@ -114,6 +124,10 @@ function manager#all_available_plugins(...) abort
     call manager#new_plugin(plugin_dir)
   endfor
   return s:all_available_plugins
+endfunction
+
+function manager#loaded_plugin_list() abort
+  return s:loaded_plugins
 endfunction
 
 function manager#disabled_plugin_list() abort
