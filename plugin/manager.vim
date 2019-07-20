@@ -14,16 +14,17 @@ endif
 let g:disabled_plugins = []
 
 let s:all_available_plugin_names = keys(manager#all_available_plugins())
-command -bang -nargs=1 -complete=custom,<SID>complete_plugins_text LoadPlugin call <SID>load_plugin(<bang>0, <q-args>)
-" command -bang -nargs=1 -complete=customlist,<SID>complete_plugins LoadPlugin call <SID>load_plugin(<bang>0, <q-args>)
+command -bang -nargs=1 -complete=custom,<SID>complete_plugins_text LoadPlugin call <SID>load_plugin(<q-args>, <bang>0)
 
-function! s:load_plugin(force, name) abort
+function! s:load_plugin(name, force) abort
   let plugin = manager#get_plugin(a:name)
   if a:force || plugin.is_enabled()
     " echom 'loading plugin ' . a:name 
     call plugin.load()
+    return v:true
   else
     echom 'plugin ' . a:name . ' has been disabled in disabled_plugins'
+    return v:false
   endif
 endfunction
 
@@ -31,18 +32,17 @@ function! s:complete_plugins_text(ArgLead, CmdLine, CursorPos) abort
   return join(s:all_available_plugin_names, "\n")
 endfunction
 
-function! s:complete_plugins(ArgLead, CmdLine, CursorPos) abort
-  return s:all_available_plugin_names 
-endfunction
-
-"command  LoadAllPlugins call <SID>load_all_plugins()
-function! s:load_all_plugins() abort
+command -bang LoadAllPlugins call <SID>load_all_plugins(<bang>0)
+function! s:load_all_plugins(force) abort
   for name in s:all_available_plugin_names 
-    call s:load_plugin(0, name)
+    if !s:load_plugin(name, 0) && a:force 
+          \ && index(g:disabled_plugins, name) < 0
+      call add(g:disabled_plugins, name)
+    endif
   endfor
 endfunction
 
-nmap <Plug>(load-plugins) :call <SID>load_all_plugins()<CR>
+nmap <Plug>(load-plugins) :call <SID>load_all_plugins(0)<CR>
 
 let s:plugins_depends_on_python3 = [
       \ 'ultisnips', 
