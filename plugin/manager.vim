@@ -11,62 +11,42 @@ if exists('g:loaded_manager') && g:loaded_manager
   finish
 endif
 
-let g:bundle = expand($VIM . '/vimfiles/bundle')
-let g:plugin_dirs = split(glob(g:bundle . '/*'), '\n')
+let s:all_available_plugin_names = keys(manager#all_available_plugins())
+command  -nargs=1 -complete=customlist,<SID>complete_plugins LoadPlugin call <SID>load_plugin(<f-args>)
 
-function! s:set_url(channel, url) dict
-  let self.url = a:url
+function! s:load_plugin(name) abort
+  try
+    let plugin = manager#get_plugin(a:name)
+    call plugin.load()
+  endtry
 endfunction
 
-function! s:load_plugin() dict
-  " echom 'loading ' . self.name
-  if has_key(self, 'directory') && isdirectory(self.directory)
-    let files = split(glob(self.directory . '/plugin/*.vim'), '\n')
-    for file in files
-      try
-        exec 'source ' . file
-      catch
-        "echom 'loading file ' . file . ' from plugin ' . self.name . ' error'
-      finally
-      endtry
-    endfor
-  endif
+function! s:complete_plugins(ArgLead, CmdLine, CursorPos) abort
+  return s:all_available_plugin_names 
 endfunction
 
-function! s:new_plugin(...)
-  if a:0 > 0 && isdirectory(a:1)
-    let plugin = {
-          \ 'set_url': function('<SID>set_url'),
-          \ 'load': function('<SID>load_plugin'),
-          \ }
-    let plugin.directory = a:1
-    let plugin.name = fnamemodify(plugin.directory, ":t")
-    let cmd = 'git --git-dir=' . plugin.directory . '\.git remote get-url origin'
-    if exists('*job_start')
-      let job = job_start(cmd, {'out_cb': plugin.set_url})
-    else
-      let plugin.url = split(system(cmd), '\n')[0]
-    endif
-    return plugin
-  else
-    echom 'directory ' . a:1 . ' not found'
-    return {}
-  endif
-endfunction
-
-function s:find_plugins(plugin_dirs) abort
-  let plugins = {}
-  for plugin_dir in a:plugin_dirs
-    let plugin = s:new_plugin(plugin_dir)
-    if has_key(plugin, 'name')
-      let plugins[plugin.name] = plugin
-    endif
+command  LoadAllPlugins call <SID>load_all_plugins()
+function! s:load_all_plugins() abort
+  for name in s:all_available_plugin_names 
+    call s:load_plugin(name)
   endfor
-  return plugins
 endfunction
 
-let g:plugins = s:find_plugins(g:plugin_dirs)
+nmap <Plug>(load-plugins) :call <SID>load_all_plugins()<CR>
 
-let g:loaded_manager = 0
+let s:plugins_depends_on_python3 = [
+      \ 'ultisnips', 
+      \ 'YouCompleteMe', 
+      \ 'vim-leader-guide' ,
+      \ 'python-mode' ,
+      \ 'ale' ,
+      \ 'vim-bufferline' ,
+      \ 'nerdtree' ,
+      \ 'vim-airline' ,
+      \ 'vim-gitgutter' ,
+      \ 'AutoComplPop' ,
+      \ ]
 
-" vim: ft=vim ts=2 sw=2 et fdm=marker 
+let g:loaded_manager = 1
+
+" vim: ft=vim ts=2 sw=2 et fdm=indent

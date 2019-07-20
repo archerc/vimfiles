@@ -50,6 +50,9 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(unite-outline)')
     nmap     <Leader>o    <Plug>(unite-outline)
   endif
+  if !hasmapto('<Plug>(load-plugins)')
+    nmap     <Leader>p    <Plug>(load-plugins)
+  endif
   if !hasmapto('<Plug>(source-buffer)')
     nmap     <Leader>s    <Plug>(source-buffer)
   endif
