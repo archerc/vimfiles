@@ -48,8 +48,6 @@ let g:vimtex_view_general_viewer = 'SumatraPDF.exe'
 let g:_uspy = 'python3'
 let g:UltiSnipsSnippetsDir = $VIM . '/vimfiles/UltiSnips'
 
-call api#debug('options.vim loaded.')
-
 let g:loaded_options = 1
 
 " vim: ft=vim ts=2 sw=2 et fenc=utf-8

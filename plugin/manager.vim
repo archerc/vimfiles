@@ -26,7 +26,7 @@ function! s:load_plugin() dict
       try
         exec 'source ' . file
       catch
-        echom 'loading file ' . file . ' from plugin ' . self.name . ' error'
+        "echom 'loading file ' . file . ' from plugin ' . self.name . ' error'
       finally
       endtry
     endfor
@@ -34,12 +34,11 @@ function! s:load_plugin() dict
 endfunction
 
 function! s:new_plugin(...)
-  let plugin = {
-        \ 'set_url': function('<SID>set_url'),
-        \ 'load': function('<SID>load_plugin'),
-        \ }
-  " echom 'new plugin ' . join(a:000, ',')
   if a:0 > 0 && isdirectory(a:1)
+    let plugin = {
+          \ 'set_url': function('<SID>set_url'),
+          \ 'load': function('<SID>load_plugin'),
+          \ }
     let plugin.directory = a:1
     let plugin.name = fnamemodify(plugin.directory, ":t")
     let cmd = 'git --git-dir=' . plugin.directory . '\.git remote get-url origin'
@@ -48,18 +47,20 @@ function! s:new_plugin(...)
     else
       let plugin.url = split(system(cmd), '\n')[0]
     endif
+    return plugin
   else
     echom 'directory ' . a:1 . ' not found'
+    return {}
   endif
-  call plugin.load()
-  return plugin
 endfunction
 
 function s:find_plugins(plugin_dirs) abort
-  let plugins = []
+  let plugins = {}
   for plugin_dir in a:plugin_dirs
     let plugin = s:new_plugin(plugin_dir)
-    call add(plugins, plugin)
+    if has_key(plugin, 'name')
+      let plugins[plugin.name] = plugin
+    endif
   endfor
   return plugins
 endfunction

@@ -70,7 +70,6 @@ endfunction
 function! s:define_mappings() abort
   nnoremap <Plug>(list-marks) :marks<CR>
   nnoremap <Plug>(current-directory) :cd %:p:h<CR>
-  nnoremap <Plug>(find-file) :edit . <CR>
   nnoremap <Plug>(delete-buffer) :bd!<CR>
   nnoremap <Plug>(source-buffer) :source %<CR>
   " by functions
@@ -82,6 +81,11 @@ function! s:define_mappings() abort
     nnoremap <Plug>(list-buffer)  :BufExplorer<CR>
   else
     nnoremap <Plug>(list-buffer)  :ls<CR>
+  endif
+  if exists(':VimFilerBufferDir')
+    nnoremap <Plug>(find-file) :VimFilerBufferDir<CR>
+  else
+    nnoremap <Plug>(find-file) :edit . <CR>
   endif
   if exists(':Unite')
     nnoremap <Plug>(unite-file)   :Unite file_rec/async<CR>
@@ -124,8 +128,6 @@ augroup keymap
   autocmd VimEnter *  :call <SID>bind_keys()
   autocmd BufWritePost <buffer> :source <sfile>
 augroup END
-
-call api#debug('keymap.vim loaded.')
 
 let g:loaded_keymap = 0
 
