@@ -23,9 +23,6 @@ function! s:bind_keys() abort
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
-  " xnoremap  <Tab>       * :call UltiSnips#SaveLastVisualSelection()<CR>gvs
-  " snoremap  <Tab>       * <Esc>:call UltiSnips#ExpandSnippet()<CR>
-
   if !hasmapto('<Plug>(list-buffer)')
     nmap     <Leader>b    <Plug>(list-buffer)
   endif
@@ -60,7 +57,7 @@ function! s:bind_keys() abort
     nmap     <Leader>t    <Plug>(open-terminal)
   endif
   if !hasmapto('<Plug>(unite-file)')
-    nmap     <Leader>u    <Plug>(unite-file)
+    nmap     <Leader>u    <Plug>(unite-source)
   endif
   if !hasmapto('<Plug>(edit-vimrc)')
     nmap     <Leader>v    <Plug>(edit-vimrc)
@@ -69,6 +66,7 @@ function! s:bind_keys() abort
     nmap     <Leader>y    <Plug>(copy-filepath)
   endif
 endfunction
+command BindKeys call s:bind_keys()
 
 function! s:define_mappings() abort
   nnoremap <Plug>(list-marks) :marks<CR>
@@ -91,7 +89,7 @@ function! s:define_mappings() abort
     nnoremap <Plug>(find-file) :edit . <CR>
   endif
   if exists(':Unite')
-    nnoremap <Plug>(unite-file)   :Unite file_rec/async<CR>
+    nnoremap <Plug>(unite-source)   :Unite source<CR>
     nnoremap <Plug>(unite-buffer)   :Unite buffer<CR>
     nnoremap <Plug>(unite-outline)   :Unite outline<CR>
   endif
@@ -128,7 +126,7 @@ endfunction
 
 augroup keymap
   autocmd!
-  autocmd VimEnter *  :call <SID>bind_keys()
+  autocmd VimEnter *  :BindKeys
   autocmd BufWritePost <buffer> :source <sfile>
 augroup END
 
