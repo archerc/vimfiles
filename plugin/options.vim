@@ -45,7 +45,7 @@ endtry
 let g:vimtex_view_general_viewer = 'SumatraPDF.exe'
 
 " ultisnips
-let g:_uspy = 'python3'
+let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsSnippetsDir = $VIM . '/vimfiles/UltiSnips'
 
 let g:loaded_options = 1
