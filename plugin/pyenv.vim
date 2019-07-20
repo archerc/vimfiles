@@ -15,23 +15,20 @@ function! UseBackSlashes(path) abort
   return substitute(a:path, '/', '\', 'g')
 endfunction
 
-let s:rtp = []
 function! GetRuntimePath() abort
-  if empty(s:rtp)
-    let vimfiles = UseBackSlashes(fnamemodify($VIM . '/vimfiles', ':p:h'))
-    let s:rtp = [$VIMRUNTIME, vimfiles]
-  endif
-  let &rtp = join(s:rtp, ',')
-  return &rtp
+  let rtp = filter(split(UseBackSlashes(&rtp), ','), 'isdirectory(v:val)')
+  let &rtp = join(rtp, ',')
+  return rtp
 endfunction
 
 function! AddToRuntimePath(path) abort
   let path = UseBackSlashes(a:path)
-  if index(s:rtp, path) < 0 && isdirectory(path)
-    call add(s:rtp, path)
-    echom "add to runtimepath: " a:path
+  let rtp = GetRuntimePath()
+  if index(rtp, path) < 0 && isdirectory(path)
+    let rtp = add(rtp, path)
+    echom "add to runtimepath: " path
   endif
-  return GetRuntimePath()
+  return rtp
 endfunction
 
 function! SetupPython() abort
