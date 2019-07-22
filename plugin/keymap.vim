@@ -38,6 +38,9 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(find-file)')
     nmap     <Leader>f    <Plug>(find-file)
   endif
+  if !hasmapto('<Plug>(git-status)')
+    nmap     <Leader>g    <Plug>(git-status)
+  endif
   if !hasmapto('<Plug>(bind-keys)')
     nmap     <Leader>k    <Plug>(bind-keys)
   endif
@@ -61,6 +64,9 @@ function! s:bind_keys() abort
   endif
   if !hasmapto('<Plug>(edit-vimrc)')
     nmap     <Leader>v    <Plug>(edit-vimrc)
+  endif
+  if !hasmapto('<Plug>(startify)')
+    nmap     <Leader>x    <Plug>(startify)
   endif
   if !hasmapto('<Plug>(copy-filepath)')
     nmap     <Leader>y    <Plug>(copy-filepath)
@@ -87,6 +93,12 @@ function! s:define_mappings() abort
     nnoremap <Plug>(find-file) :VimFilerBufferDir<CR>
   else
     nnoremap <Plug>(find-file) :edit . <CR>
+  endif
+  if exists(':Gstatus')
+    nnoremap <Plug>(git-status) :Gstatus<CR>
+  endif
+  if exists(':Startify')
+    nnoremap <Plug>(startify) :Startify<CR>
   endif
   if exists(':Unite')
     nnoremap <Plug>(unite-source)   :Unite source<CR>

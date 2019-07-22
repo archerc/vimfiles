@@ -56,7 +56,12 @@ let g:UltiSnipsSnippetsDir = expand($VIM . '/vimfiles/UltiSnips')
 function! s:check_python() abort
   if SetupPython()
     py3 import vim
-    py3 print(vim.options['runtimepath'])
+    py3 <<EOF
+try:
+  import shutil
+except UnicodeDecodeError,ImportError:
+  pass
+EOF
   endif
 endfunction
 command -nargs=0 CheckPython call <SID>check_python()
