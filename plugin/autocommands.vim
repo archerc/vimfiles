@@ -11,6 +11,12 @@ if exists('g:loaded_autocmds') && g:loaded_autocmds
   finish
 endif
 
+augroup vim_startup
+  autocmd!
+  autocmd   VimEnter  *   LoadAllPlugins
+  autocmd   VimEnter  *   Startify
+augroup END
+
 let g:loaded_autocmds = 1
 
 " vim: ft=vim ts=2 sw=2 et fdm=marker 
