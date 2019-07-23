@@ -23,8 +23,11 @@ function! s:bind_keys() abort
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
+  if !hasmapto('<Plug>(unite-buffer)')
+    nmap     <Leader>b    <Plug>(unite-buffer)
+  endif
   if !hasmapto('<Plug>(list-buffer)')
-    nmap     <Leader>b    <Plug>(list-buffer)
+    nmap     <Leader>B    <Plug>(list-buffer)
   endif
   if !hasmapto('<Plug>(current-directory)')
     nmap     <Leader>c    <Plug>(current-directory)
@@ -35,8 +38,11 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(easymotion-prefix)')
     nmap     <Leader>e    <Plug>(easymotion-prefix)
   endif
+  if !hasmapto('<Plug>(unite-file)')
+    nmap     <Leader>f    <Plug>(unite-file)
+  endif
   if !hasmapto('<Plug>(find-file)')
-    nmap     <Leader>f    <Plug>(find-file)
+    nmap     <Leader>F    <Plug>(find-file)
   endif
   if !hasmapto('<Plug>(git-status)')
     nmap     <Leader>g    <Plug>(git-status)
@@ -59,7 +65,7 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(open-terminal)')
     nmap     <Leader>t    <Plug>(open-terminal)
   endif
-  if !hasmapto('<Plug>(unite-file)')
+  if !hasmapto('<Plug>(unite-source)')
     nmap     <Leader>u    <Plug>(unite-source)
   endif
   if !hasmapto('<Plug>(edit-vimrc)')
@@ -102,7 +108,8 @@ function! s:define_mappings() abort
   endif
   if exists(':Unite')
     nnoremap <Plug>(unite-source)   :Unite source<CR>
-    nnoremap <Plug>(unite-buffer)   :Unite buffer<CR>
+    nnoremap <Plug>(unite-buffer)   :Unite -start-insert buffer<CR>
+    nnoremap <Plug>(unite-file)     :Unite -start-insert file_rec<CR>
     nnoremap <Plug>(unite-outline)   :Unite outline<CR>
   endif
 endfunction
