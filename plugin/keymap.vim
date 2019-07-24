@@ -23,8 +23,11 @@ function! s:bind_keys() abort
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
+  if !hasmapto('<Plug>(unite-buffer)')
+    nmap     <Leader>b    <Plug>(unite-buffer)
+  endif
   if !hasmapto('<Plug>(list-buffer)')
-    nmap     <Leader>b    <Plug>(list-buffer)
+    nmap     <Leader>B    <Plug>(list-buffer)
   endif
   if !hasmapto('<Plug>(unite-buffer)')
     nmap     <Leader>B    <Plug>(unite-buffer)
@@ -38,11 +41,17 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(easymotion-prefix)')
     nmap     <Leader>e    <Plug>(easymotion-prefix)
   endif
+  if !hasmapto('<Plug>(unite-file)')
+    nmap     <Leader>f    <Plug>(unite-file)
+  endif
   if !hasmapto('<Plug>(find-file)')
-    nmap     <Leader>f    <Plug>(find-file)
+    nmap     <Leader>F    <Plug>(find-file)
   endif
   if !hasmapto('<Plug>(git-status)')
     nmap     <Leader>g    <Plug>(git-status)
+  endif
+  if !hasmapto('<Plug>(unite-history)')
+    nmap     <Leader>h    <Plug>(unite-history)
   endif
   if !hasmapto('<Plug>(bind-keys)')
     nmap     <Leader>k    <Plug>(bind-keys)
@@ -50,11 +59,17 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(list-marks)')
     nmap     <Leader>l    <Plug>(list-marks)
   endif
+  if !hasmapto('<Plug>(do-make)')
+    nmap     <Leader>m    <Plug>(do-make)
+  endif
   if !hasmapto('<Plug>(unite-outline)')
     nmap     <Leader>o    <Plug>(unite-outline)
   endif
   if !hasmapto('<Plug>(load-plugins)')
     nmap     <Leader>p    <Plug>(load-plugins)
+  endif
+  if !hasmapto('<Plug>(open-explorer)')
+    nmap     <Leader>r    <Plug>(open-explorer)
   endif
   if !hasmapto('<Plug>(source-buffer)')
     nmap     <Leader>s    <Plug>(source-buffer)
@@ -67,6 +82,9 @@ function! s:bind_keys() abort
   endif
   if !hasmapto('<Plug>(edit-vimrc)')
     nmap     <Leader>v    <Plug>(edit-vimrc)
+  endif
+  if !hasmapto('<Plug>(startify)')
+    nmap     <Leader>x    <Plug>(startify)
   endif
   if !hasmapto('<Plug>(copy-filepath)')
     nmap     <Leader>y    <Plug>(copy-filepath)
@@ -89,10 +107,21 @@ function! s:define_mappings() abort
   else
     nnoremap <Plug>(list-buffer)  :ls<CR>
   endif
+  if exists(':Make')
+    nnoremap <Plug>(do-make)  :Make<CR>
+  else
+    nnoremap <Plug>(do-make)  :make<CR>
+  endif
   if exists(':VimFilerBufferDir')
     nnoremap <Plug>(find-file) :VimFilerBufferDir<CR>
   else
     nnoremap <Plug>(find-file) :edit . <CR>
+  endif
+  if exists(':VimFilerExplorer')
+    nnoremap <Plug>(open-explorer) :VimFilerExplorer<CR>
+  endif
+  if exists(':Startify')
+    nnoremap <Plug>(startify) :Startify<CR>
   endif
   if exists(':Gstatus')
     nnoremap <Plug>(git-status) :Gstatus<CR>
@@ -100,6 +129,8 @@ function! s:define_mappings() abort
   if exists(':Unite')
     nnoremap <Plug>(unite-source)   :Unite source<CR>
     nnoremap <Plug>(unite-buffer)   :Unite -start-insert buffer<CR>
+    nnoremap <Plug>(unite-file)     :Unite -start-insert file_rec<CR>
+    nnoremap <Plug>(unite-history)     :Unite -start-insert file_mru directory_mru<CR>
     nnoremap <Plug>(unite-outline)   :Unite outline<CR>
   endif
 endfunction
@@ -141,4 +172,4 @@ augroup END
 
 let g:loaded_keymap = 0
 
-" vim: ft=vim ts=2 sw=2 et fdm=marker 
+" vim: ft=vim et fdm=marker 
