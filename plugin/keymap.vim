@@ -53,11 +53,17 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(list-marks)')
     nmap     <Leader>l    <Plug>(list-marks)
   endif
+  if !hasmapto('<Plug>(do-make)')
+    nmap     <Leader>m    <Plug>(do-make)
+  endif
   if !hasmapto('<Plug>(unite-outline)')
     nmap     <Leader>o    <Plug>(unite-outline)
   endif
   if !hasmapto('<Plug>(load-plugins)')
     nmap     <Leader>p    <Plug>(load-plugins)
+  endif
+  if !hasmapto('<Plug>(open-explorer)')
+    nmap     <Leader>r    <Plug>(open-explorer)
   endif
   if !hasmapto('<Plug>(source-buffer)')
     nmap     <Leader>s    <Plug>(source-buffer)
@@ -95,10 +101,18 @@ function! s:define_mappings() abort
   else
     nnoremap <Plug>(list-buffer)  :ls<CR>
   endif
+  if exists(':Make')
+    nnoremap <Plug>(do-make)  :Make<CR>
+  else
+    nnoremap <Plug>(do-make)  :make<CR>
+  endif
   if exists(':VimFilerBufferDir')
     nnoremap <Plug>(find-file) :VimFilerBufferDir<CR>
   else
     nnoremap <Plug>(find-file) :edit . <CR>
+  endif
+  if exists(':VimFilerExplorer')
+    nnoremap <Plug>(open-explorer) :VimFilerExplorer<CR>
   endif
   if exists(':Gstatus')
     nnoremap <Plug>(git-status) :Gstatus<CR>
@@ -151,4 +165,4 @@ augroup END
 
 let g:loaded_keymap = 0
 
-" vim: ft=vim ts=2 sw=2 et fdm=marker 
+" vim: ft=vim et fdm=marker 
