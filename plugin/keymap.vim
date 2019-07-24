@@ -26,6 +26,9 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(list-buffer)')
     nmap     <Leader>b    <Plug>(list-buffer)
   endif
+  if !hasmapto('<Plug>(unite-buffer)')
+    nmap     <Leader>B    <Plug>(unite-buffer)
+  endif
   if !hasmapto('<Plug>(current-directory)')
     nmap     <Leader>c    <Plug>(current-directory)
   endif
@@ -37,6 +40,9 @@ function! s:bind_keys() abort
   endif
   if !hasmapto('<Plug>(find-file)')
     nmap     <Leader>f    <Plug>(find-file)
+  endif
+  if !hasmapto('<Plug>(git-status)')
+    nmap     <Leader>g    <Plug>(git-status)
   endif
   if !hasmapto('<Plug>(bind-keys)')
     nmap     <Leader>k    <Plug>(bind-keys)
@@ -56,7 +62,7 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(open-terminal)')
     nmap     <Leader>t    <Plug>(open-terminal)
   endif
-  if !hasmapto('<Plug>(unite-file)')
+  if !hasmapto('<Plug>(unite-source)')
     nmap     <Leader>u    <Plug>(unite-source)
   endif
   if !hasmapto('<Plug>(edit-vimrc)')
@@ -88,9 +94,12 @@ function! s:define_mappings() abort
   else
     nnoremap <Plug>(find-file) :edit . <CR>
   endif
+  if exists(':Gstatus')
+    nnoremap <Plug>(git-status) :Gstatus<CR>
+  endif
   if exists(':Unite')
     nnoremap <Plug>(unite-source)   :Unite source<CR>
-    nnoremap <Plug>(unite-buffer)   :Unite buffer<CR>
+    nnoremap <Plug>(unite-buffer)   :Unite -start-insert buffer<CR>
     nnoremap <Plug>(unite-outline)   :Unite outline<CR>
   endif
 endfunction
