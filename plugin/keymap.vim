@@ -54,9 +54,6 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(git-status)')
     nmap     <Leader>g    <Plug>(git-status)
   endif
-  if !hasmapto('<Plug>(unite-history)')
-    nmap     <Leader>h    <Plug>(unite-history)
-  endif
   if !hasmapto('<Plug>(bind-keys)')
     nmap     <Leader>k    <Plug>(bind-keys)
   endif
@@ -72,8 +69,11 @@ function! s:bind_keys() abort
   if !hasmapto('<Plug>(load-plugins)')
     nmap     <Leader>p    <Plug>(load-plugins)
   endif
+  if !hasmapto('<Plug>(unite-history)')
+    nmap     <Leader>r    <Plug>(unite-history)
+  endif
   if !hasmapto('<Plug>(open-explorer)')
-    nmap     <Leader>r    <Plug>(open-explorer)
+    nmap     <Leader>R    <Plug>(open-explorer)
   endif
   if !hasmapto('<Plug>(source-buffer)')
     nmap     <Leader>s    <Plug>(source-buffer)
@@ -104,7 +104,11 @@ function! s:define_mappings() abort
   " by functions
   nnoremap <Plug>(copy-filepath) :call <SID>copy_current_filepath()<CR>
   nnoremap <Plug>(edit-vimrc) :call <SID>edit_vimrc()<CR>
-  nnoremap <Plug>(open-terminal) :call <SID>open_terminal()<CR>
+  if exists(':VimShell')
+    nnoremap <Plug>(open-terminal) :VimShell<CR>
+  else
+    nnoremap <Plug>(open-terminal) :call <SID>open_terminal()<CR>
+  endif
   nnoremap <Plug>(bind-keys) :call <SID>bind_keys()<CR>
   if exists(':BufExplorer')
     nnoremap <Plug>(list-buffer)  :BufExplorer<CR>
@@ -174,6 +178,6 @@ augroup keymap
   autocmd BufWritePost <buffer> :source <sfile>
 augroup END
 
-let g:loaded_keymap = 0
+" let g:loaded_keymap = 0
 
 " vim: ft=vim et fdm=marker 
