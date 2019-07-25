@@ -11,10 +11,6 @@ if exists('g:loaded_keymap') && g:loaded_keymap
   finish
 endif
 
-" let g:matlab_auto_mappings = 0
-let g:Matlab_MapLeader = '.'
-let g:Matlab_GlbTemplateFile = expand($VIM . '/vimfiles/bundle/vim-plugins/matlab-support/templates/Templates')
-
 function! s:bind_keys() abort
   call s:define_mappings()
   let g:mapleader = ','
