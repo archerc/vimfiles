@@ -3,7 +3,10 @@ let s:source = {
 			\ 	'name': 'plugins',
 			\ 	'max_candidates': 500,
 			\ 	'description': 'candidates from plugins',
-			\ 	'hooks': {},
+			\   'syntax': 'uniteSource__Plugins',
+			\ 	'hooks': {
+			\ 			'on_syntax': function('unite#sources#plugins#on_syntax'),
+			\ 	},
 			\ 	'default_action': 'load',
 			\ 	'action_table': {
 			\ 	   'load' : {
@@ -27,6 +30,10 @@ function! unite#sources#plugins#gather_candiates() abort
 	return s:source.gather_candidates({}, {})
 endfunction
 
+function! unite#sources#plugins#on_syntax() abort
+	return s:source.hooks.on_syntax({}, {})
+endfunction
+
 function! s:load_plugin() dict
 	if !self.is_loaded && self.is_enabled
 		exec 'set rtp+=' . self.directory
@@ -39,17 +46,17 @@ function! s:load_plugin() dict
 endfunction
 
 function! s:new_plugin(index, directory) abort
-	let name = fnamemodify(a:directory, ':t:r')
 	let plugin = { 
 				\ 	'index': (a:index < 0) ? len(s:available_plugins) : a:index, 
 				\ 	'directory': a:directory,
-				\ 	'word': name,
+				\   'name': fnamemodify(a:directory, ':t:r'),
 				\		'scripts': s:list_directory(a:directory, '/plugin/*.vim'),
 				\ 	'is_available': isdirectory(a:directory),
-				\   'is_enabled': index(s:disabled_plugins, name) < 0,
 				\ 	'is_loaded': v:false,
 				\ 	'load': function('<SID>load_plugin'),
 				\ }
+	let plugin.is_enabled = index(s:disabled_plugins, plugin.name) < 0
+	let plugin.word = printf('%2d  %-40s%10s', plugin.index, plugin.name, (plugin.is_enabled ? 'enabled' : 'disabled'))
 	if a:index < 0 || a:index == len(s:available_plugins)
 		let s:available_plugins = add(s:available_plugins, plugin)
 	else
@@ -67,6 +74,13 @@ function! s:source.gather_candidates(args, context) abort
 	endif
 	return s:available_plugins
 endfunction
+
+function! s:source.hooks.on_syntax(args, context) abort "{{{
+	syntax match uniteSource__Plugins_Enabled /^.*enabled$/ contained containedin=uniteSource__Plugins
+  highlight default link uniteSource__Plugins_Enabled Identifier
+	syntax match uniteSource__Plugins_Disabled /^.*disabled$/ contained containedin=uniteSource__Plugins
+  highlight default link uniteSource__Plugins_Disabled Exception
+endfunction "}}}
 
 function! s:source.action_table.load.func(candidate) abort
 	if has_key(a:candidate, 'load')
@@ -90,3 +104,5 @@ function! s:source_file(index, script) abort
 		endtry
 	endif
 endfunction
+
+" vim: fdm=marker
