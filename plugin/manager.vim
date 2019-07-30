@@ -49,7 +49,7 @@ augroup plugin_manager
   autocmd VimEnter *  LoadAllPlugins
 augroup END
 
-nmap <Plug>(load-plugins) :call <SID>load_all_plugins(0)<CR>
+nmap <Plug>(load-plugins) :LoadAllPlugins<CR>
 
 let s:plugins_depends_on_python3 = [
       \ 'ultisnips', 

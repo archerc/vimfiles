@@ -11,6 +11,43 @@ if exists('g:loaded_keymap') && g:loaded_keymap
   finish
 endif
 
+" Define prefix dictionary
+let g:lmap =  {}
+" Second level dictionaries:
+let g:lmap.f = { 'name' : 'File Menu' }
+" Provide commands and descriptions for existing mappings
+let g:lmap.f.d = ['<Plug>(edit-vimrc)', 'edit vimrc']
+let g:lmap.f.s = ['<Plug>(source-buffer)', 'source buffer']
+let g:lmap.f.w = ['<Plug>(write-buffer)', 'write file']
+
+let g:lmap.o = { 'name' : 'Open Stuff' }
+let g:lmap.o.o = ['<Plug>(open-quickfix)', 'open quickfix']
+let g:lmap.o.l = ['<Plug>(open-locations)', 'open locationlist']
+
+" Create new menus not based on existing mappings:
+let g:lmap.g = {
+      \'name' : 'Git Menu',
+      \'s' : ['Gstatus', 'Git Status'],
+      \'p' : ['Gpull',   'Git Pull'],
+      \'u' : ['Gpush',   'Git Push'],
+      \'c' : ['Gcommit', 'Git Commit'],
+      \'w' : ['Gwrite',  'Git Write'],
+      \}
+
+" If you use NERDCommenter:
+let g:lmap.c = { 'name' : 'Comments' }
+" Define some descriptions
+let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
+let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
+" The Descriptions for other mappings defined by NerdCommenter, will default
+" to their respective commands.
+
+if exists('loaded_leaderGuide_vim')
+  call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+  nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+  vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+end
+
 function! s:bind_keys() abort
   call s:define_mappings()
   let g:mapleader = ','
@@ -95,8 +132,11 @@ command BindKeys call s:bind_keys()
 function! s:define_mappings() abort
   nnoremap <Plug>(list-marks) :marks<CR>
   nnoremap <Plug>(current-directory) :cd %:p:h<CR>
-  nnoremap <Plug>(delete-buffer) :bd!<CR>
-  nnoremap <Plug>(source-buffer) :source %<CR>
+  nnoremap <Plug>(delete-buffer)  :bd!<CR>
+  nnoremap <Plug>(source-buffer)  :source %<CR>
+  nnoremap <Plug>(write-buffer)   :w! %<CR>
+  nnoremap <Plug>(open-quickfix)  :copen<CR>
+  nnoremap <Plug>(open-locations) :lopen<CR>
   " by functions
   nnoremap <Plug>(copy-filepath) :call <SID>copy_current_filepath()<CR>
   nnoremap <Plug>(edit-vimrc) :call <SID>edit_vimrc()<CR>
