@@ -1,16 +1,42 @@
-function! unite#sources#plugins#define() 
+if exists('g:did_plugin_autoload') && g:did_plugin_autoload 
+	finish
+endif
+
+function! unite#sources#plugins#define() abort "{{{
   return s:source
-endfunction
+endfunction "}}}
 
-function! unite#sources#plugins#init() 
-	let g:disabled_plugins = [
-				\     'ultisnips',
-				\     'YouCompleteMe'
-				\ ]
+function! unite#sources#plugins#gather_candidates() abort  "{{{
+	let s:available_plugins = []
 	return s:source.gather_candidates({}, {})
-endfunction
+endfunction "}}}
 
-let s:source = {
+function! unite#sources#plugins#get(plugin) abort  "{{{
+	let plugin_index = index(s:available_plugins, a:plugin)
+	if plugin_index >= 0
+		return g:plugins[plugin_index]
+	else
+		return {}
+	endif
+endfunction "}}}
+
+" {{{ global variables
+if !exists('g:load_on_construct')
+	let g:load_on_construct = v:true
+endif
+if !exists('g:hook_on_load')
+	let g:hook_on_load = v:true
+endif
+if !exists('g:hook_before_load')
+	let g:hook_before_load = v:false
+endif
+if !exists('g:hook_after_load')
+	let g:hook_after_load = v:true
+endif
+"}}}
+
+"{{{ script variables
+let s:source = { 
 			\ 	'name': 'plugins',
 			\ 	'max_candidates': 500,
 			\ 	'description': 'candidates from plugins',
@@ -26,36 +52,58 @@ let s:source = {
 			\ 	   },
 			\ 	}
 			\ }
+let s:disabled_plugins = [
+			\     'ultisnips',
+			\     'YouCompleteMe'
+			\ ]
 
-let s:available_plugins = []
-let s:disabled_plugins = []
+ "}}}
 
-function! s:load_plugin() dict
-	if !self.is_enabled
-		echom 'plugin ' . self.name . ' has been disabled'
+function! s:load_plugin() dict "{{{
+	if !self.is_enabled()
+		silent echom 'plugin ' . self.name . ' has been disabled'
 		return
 	endif
 	if self.is_loaded 
-		echom 'plugin ' . self.name . ' has been loaded'
+		silent echom 'plugin ' . self.name . ' has been loaded'
 		return
 	endif
 	exec 'set rtp+=' . self.directory
-	call self.run_hook('before_load')
-	let scripts = filter(self.scripts, 'filereadable(v:val)')
-	call map(scripts, function('<SID>source_file'))
-	let self.is_loaded = v:true
-	call self.run_hook('after_load')
-endfunction
+	if get(g:, 'hook_before_load', v:false)
+		call self.run_hook('before_load')
+	endif
+	if get(g:, 'hook_on_load', v:true)
+		let self.is_loaded = self.run_hook('on_load')
+	endif
+	if get(g:, 'hook_after_load', v:false)
+		call self.run_hook('after_load')
+	endif
+endfunction "}}}
 
 function! s:run_hook(name, ...) dict "{{{
 	let escaped_name = substitute(self.name, '-', '_', 'g')
+	let default_func_name = 'unite#sources#plugins#default#' . a:name
 	let func_name = 'unite#sources#plugins#' . escaped_name . '#' . a:name
 	let args = (a:0 > 0) ? a:000 : []
-	let hook = { 'command' : function(func_name, args, self) }
+	let hook = { 
+				\ 	'global' : function(default_func_name, args, self),
+				\ 	'plugin' : function(func_name, args, self),
+				\ }
 	try
-		call hook.command()
+		call hook.plugin()
 	catch /^Vim(call):E117: Unknown function/
+		call hook.global()
 	endtry
+endfunction "}}}
+
+function! s:is_enabled() dict "{{{
+	let disabled_plugins = get(g:, 'disabled_plugins', s:disabled_plugins)
+	return index(disabled_plugins, self.name) < 0
+endfunction"}}}
+
+function! s:get_word() dict  "{{{
+	let status = self.is_enabled() ? 'enabled' : 'disabled'
+	return printf('%2d  %-40s%10s', self.index, self.name, status)
 endfunction "}}}
 
 function! s:new_plugin(index, directory) abort "{{{
@@ -63,29 +111,31 @@ function! s:new_plugin(index, directory) abort "{{{
 				\ 	'index': (a:index < 0) ? len(s:available_plugins) : a:index, 
 				\ 	'directory': a:directory,
 				\   'name': fnamemodify(a:directory, ':t:r'),
-				\		'scripts': s:list_directory(a:directory, '/plugin/*.vim'),
 				\ 	'is_available': isdirectory(a:directory),
+				\ 	'is_enabled': function('<SID>is_enabled'),
 				\ 	'is_loaded': v:false,
+				\ 	'get_word': function('<SID>get_word'),
 				\ 	'load': function('<SID>load_plugin'),
 				\ 	'run_hook': function('<SID>run_hook'),
 				\ }
-	let disabled_plugins = get(g:, 'disabled_plugins', s:disabled_plugins)
-	let plugin.is_enabled = index(s:disabled_plugins, plugin.name) < 0
-	let plugin.word = printf('%2d  %-40s%10s', plugin.index, plugin.name, (plugin.is_enabled ? 'enabled' : 'disabled'))
+	let plugin.word = plugin.get_word()
 	if a:index < 0 || a:index == len(s:available_plugins)
-		let s:available_plugins = add(s:available_plugins, plugin)
+		let s:available_plugins = add(s:available_plugins, plugin.name)
 	else
-		let s:available_plugins[a:index] = plugin
+		let s:available_plugins[a:index] = plugin.name
 	endif
-	call plugin.load()
+	if get(g:, 'load_on_construct', v:true)
+		call plugin.load()
+	endif
 	return plugin
 endfunction "}}}
 
 function! s:source.gather_candidates(args, context) abort "{{{
 	if !has_key(s:, 'available_plugins') || empty(s:available_plugins)
+		let s:available_plugins = []
 		let bundle = get(g:, 'bundle', $VIM . '/vimfiles/bundle')
-		let plugins = s:list_directory(bundle)
-		call map(plugins, function('<SID>new_plugin'))
+		let g:plugins = unite#sources#plugins#default#list_directory(bundle)
+		call map(g:plugins, function('<SID>new_plugin'))
 	endif
 	return s:available_plugins
 endfunction "}}}
@@ -103,21 +153,4 @@ function! s:source.action_table.open.func(candidate) abort "{{{
 	endif
 endfunction "}}}
 
-function! s:list_directory(dir, ...) abort "{{{
-  if isdirectory(a:dir)
-    let pattern = (a:0 > 0) ? a:1 : '*'
-    return split(globpath(a:dir, pattern))
-  else
-    return []
-  endif
-endfunction "}}}
-
-function! s:source_file(index, script) abort "{{{
-	if filereadable(a:script)
-		try
-			exec 'source ' . a:script
-		endtry
-	endif
-endfunction "}}}
-
-" vim: fdm=marker
+let g:did_plugin_autoload = 1

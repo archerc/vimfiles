@@ -25,6 +25,7 @@ set relativenumber
 set colorcolumn=80
 set background=dark
 set noswapfile
+set hls
 set guioptions=grL
 set helplang=cn
 filetype plugin indent on
@@ -61,4 +62,3 @@ let g:vimtex_view_general_viewer = 'SumatraPDF.exe'
 " }}}
 let g:did_plugin_options = 1
 
-" vim: ft=vim ts=2 sw=2 et fenc=utf-8 fdm=indent

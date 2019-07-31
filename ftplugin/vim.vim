@@ -6,5 +6,5 @@ setlocal cms=\ \"%s
 augroup vim_filetype
 	autocmd!
 	autocmd BufReadPost 	*.vim,vimrc,_vimrc :setlocal cms=\ \"%s
-	autocmd BufWritePost 	*.vim,vimrc,_vimrc :source <sfile>
+	"autocmd BufWritePost 	*.vim,vimrc,_vimrc :source <sfile>
 augroup END
