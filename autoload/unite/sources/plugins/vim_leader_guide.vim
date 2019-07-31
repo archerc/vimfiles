@@ -34,13 +34,12 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ шо╛ч
 	let g:lmap.f.f = ['VimFiler', 					'vimfiler']
 	let g:lmap.f.s = ['Startify', 					'startify']
 	let g:lmap.f.l = ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
-	let g:lmap.g = {
-				\		'name' : 'Git',
-				\		's' : ['Gstatus', 'Git Status'],
-				\		'p' : ['AsyncRun Git pull',   'Git Pull'],
-				\		'u' : ['AsyncRun Git push',   'Git Push'],
-				\		'c' : ['Gcommit', 'Git Commit'],
-				\ }
+	let g:lmap.g = { 	'name' : 'Git' }
+  let g:lmap.g.c = ['Gcommit', 'Git Commit']
+  let g:lmap.g.m = ["call magit#show_magit('v')",   'Magit']
+  let g:lmap.g.p = ['AsyncRun Git pull',   'Git Pull']
+  let g:lmap.g.s = ['Gstatus', 'Git Status']
+  let g:lmap.g.u = ['AsyncRun Git push',   'Git Push']
 	let g:lmap.o = { 'name' : 'Open' }
 	let g:lmap.o.o = ['copen', 'quickfix']
 	let g:lmap.o.l = ['lopen', 'locationlist']
