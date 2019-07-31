@@ -20,6 +20,7 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ шо╛ч
 	let g:lmap.b = { 'name' : 'Buffer' }
 	let g:lmap.b.d = ['bd!', 'delete']
 	let g:lmap.b.e = ['BufExplorer', 'explorer']
+	let g:lmap.b.s = ['source %', 					'source']
 	let g:lmap.c = { 'name' : 'Comments' }
 	" Define some descriptions
 	let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
@@ -28,12 +29,12 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ шо╛ч
 	let g:lmap.f.b = ['VimFilerBufferDir', 	'buffer directory']
 	let g:lmap.f.c = ['VimFilerCurrentDir', 'current directory']
 	let g:lmap.f.e = ['VimFilerExplorer', 	'explorer']
-	let g:lmap.f.s = ['source %', 					'source']
+	let g:lmap.f.s = ['Startify', 					'startify']
 	let g:lmap.g = {
 				\		'name' : 'Git',
 				\		's' : ['Gstatus', 'Git Status'],
-				\		'p' : ['Gpull',   'Git Pull'],
-				\		'u' : ['Gpush',   'Git Push'],
+				\		'p' : ['AsyncRun Git pull',   'Git Pull'],
+				\		'u' : ['AsyncRun Git push',   'Git Push'],
 				\		'c' : ['Gcommit', 'Git Commit'],
 				\ }
 	let g:lmap.o = { 'name' : 'Open' }
