@@ -18,9 +18,11 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ шо╛ч
 	let g:mapleader = ' '
 	let g:lmap =  { 'name' : '<Leader>' }
 	let g:lmap.b = { 'name' : 'Buffer' }
-	let g:lmap.b.d = ['bd!', 'delete']
-	let g:lmap.b.e = ['BufExplorer', 'explorer']
-	let g:lmap.b.s = ['source %', 					'source']
+	let g:lmap.b.d = ['bd!', 					'delete']
+	let g:lmap.b.e = ['BufExplorer', 	'explorer']
+	let g:lmap.b.n = ['bnext', 				'next']
+	let g:lmap.b.p = ['source %', 		'previous']
+	let g:lmap.b.s = ['source %', 		'source']
 	let g:lmap.c = { 'name' : 'Comments' }
 	" Define some descriptions
 	let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
@@ -29,7 +31,9 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ шо╛ч
 	let g:lmap.f.b = ['VimFilerBufferDir', 	'buffer directory']
 	let g:lmap.f.c = ['VimFilerCurrentDir', 'current directory']
 	let g:lmap.f.e = ['VimFilerExplorer', 	'explorer']
+	let g:lmap.f.f = ['VimFiler', 					'vimfiler']
 	let g:lmap.f.s = ['Startify', 					'startify']
+	let g:lmap.f.l = ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
 	let g:lmap.g = {
 				\		'name' : 'Git',
 				\		's' : ['Gstatus', 'Git Status'],
