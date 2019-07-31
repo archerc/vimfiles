@@ -16,24 +16,26 @@ endfunction "}}}
 
 function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ 设置变量
 	let g:mapleader = ' '
-	let g:lmap =  { 'name' : '<Leader>' }
-	let g:lmap.b = { 'name' : 'Buffer' }
-	let g:lmap.b.d = ['bd!', 					'delete']
-	let g:lmap.b.e = ['BufExplorer', 	'explorer']
-	let g:lmap.b.n = ['bnext', 				'next']
-	let g:lmap.b.p = ['source %', 		'previous']
-	let g:lmap.b.s = ['source %', 		'source']
-	let g:lmap.c = { 'name' : 'Comments' }
+	let g:lmap 			=  { 'name' : '<Leader>' }
+	let g:lmap.b 		= { 'name' : 'Buffer' }
+	let g:lmap.b.d 	= ['bd!', 					'delete']
+	let g:lmap.b.e 	= ['BufExplorer', 	'explorer']
+	let g:lmap.b.n 	= ['bnext', 				'next']
+	let g:lmap.b.p 	= ['bprev %', 			'previous']
+	let g:lmap.b.s 	= ['source %', 			'source']
+	let g:lmap.b.w 	= ['write', 				'write']
+	let g:lmap.c 		= { 'name' : 'Comments' }
 	" Define some descriptions
-	let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
-	let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
-	let g:lmap.f = { 	'name' : 'File' }
-	let g:lmap.f.b = ['VimFilerBufferDir', 	'buffer directory']
-	let g:lmap.f.c = ['VimFilerCurrentDir', 'current directory']
-	let g:lmap.f.e = ['VimFilerExplorer', 	'explorer']
-	let g:lmap.f.f = ['VimFiler', 					'vimfiler']
-	let g:lmap.f.s = ['Startify', 					'startify']
-	let g:lmap.f.l = ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
+	let g:lmap.c.c 	= ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
+	let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
+	let g:lmap.c.d 	= [ 'cd %:p:h', 		'current directory' ]
+	let g:lmap.f 		= { 	'name' : 'File' }
+	let g:lmap.f.b 	= ['VimFilerBufferDir', 	'buffer directory']
+	let g:lmap.f.c 	= ['VimFilerCurrentDir', 'current directory']
+	let g:lmap.f.e 	= ['VimFilerExplorer', 	'explorer']
+	let g:lmap.f.f 	= ['VimFiler', 					'vimfiler']
+	let g:lmap.f.s 	= ['Startify', 					'startify']
+	let g:lmap.f.l 	= ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
 	let g:lmap.g = { 	'name' : 'Git' }
   let g:lmap.g.c = ['Gcommit', 'Git Commit']
   let g:lmap.g.m = ["call magit#show_magit('v')",   'Magit']
@@ -43,6 +45,11 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ 设�
 	let g:lmap.o = { 'name' : 'Open' }
 	let g:lmap.o.o = ['copen', 'quickfix']
 	let g:lmap.o.l = ['lopen', 'locationlist']
+	let g:lmap.u = { 	'name': 'Unite' }
+	let g:lmap.u.b = ['Unite buffer',					'buffer']
+	let g:lmap.u.f = ['Unite file_rec/async',	'file']
+	let g:lmap.u.o = ['Unite outline',				'outline']
+	let g:lmap.u.s = ['Unite source',					'source']
 	" The Descriptions for other mappings defined by NerdCommenter, will default
 	" to their respective commands.
 	let g:maplocalleader = ','

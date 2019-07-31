@@ -4,3 +4,5 @@ let g:Matlab_MapLeader = '.'
 let g:Matlab_LclTemplateFile = $HOME.'/vimfiles/matlab-support/templates/Templates'
 let g:Matlab_GlbTemplateFile = expand($VIM . '/vimfiles/bundle/vim-plugins/matlab-support/templates/Templates')
 
+hi matlabCellComment guifg=green 
+
