@@ -7,23 +7,28 @@
 " License:     Apache License, Version 2.0
 " ============================================================================
 
-"{{{ 初始化
-function! unite#sources#plugins#vim_leader_guide#after_load() abort
+function! unite#sources#plugins#vim_leader_guide#after_load() abort "{{{ 初始化
 	call unite#sources#plugins#vim_leader_guide#set_variables()
 	call unite#sources#plugins#vim_leader_guide#define_mappings()
 	call unite#sources#plugins#vim_leader_guide#bind_keys()
 	echom 'vim leader guide initliazed.'
-endfunction
-	"}}}
+endfunction "}}}
 
-"{{{ 设置变量
-function! unite#sources#plugins#vim_leader_guide#set_variables() abort
+function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ 设置变量
 	let g:mapleader = ' '
-	" Define prefix dictionary
 	let g:lmap =  { 'name' : '<Leader>' }
-	" Second level dictionaries:
+	let g:lmap.b = { 'name' : 'Buffer' }
+	let g:lmap.b.d = ['bd!', 'delete']
+	let g:lmap.b.e = ['BufExplorer', 'explorer']
+	let g:lmap.c = { 'name' : 'Comments' }
+	" Define some descriptions
+	let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
+	let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
 	let g:lmap.f = { 	'name' : 'File' }
-	" Create new menus not based on existing mappings:
+	let g:lmap.f.b = ['VimFilerBufferDir', 	'buffer directory']
+	let g:lmap.f.c = ['VimFilerCurrentDir', 'current directory']
+	let g:lmap.f.e = ['VimFilerExplorer', 	'explorer']
+	let g:lmap.f.s = ['source %', 					'source']
 	let g:lmap.g = {
 				\		'name' : 'Git',
 				\		's' : ['Gstatus', 'Git Status'],
@@ -31,16 +36,9 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort
 				\		'u' : ['Gpush',   'Git Push'],
 				\		'c' : ['Gcommit', 'Git Commit'],
 				\ }
-	let g:lmap.o = { 'name' : 'open' }
-	" Provide commands and descriptions for existing mappings
-	let g:lmap.f.b = ['<Plug>(open-buffer-directory)', 'open buffer directory']
-	let g:lmap.o.o = ['copen', 'Open quickfix']
-	let g:lmap.o.l = ['lopen', 'Open locationlist']
-	" If you use NERDCommenter:
-	let g:lmap.c = { 'name' : 'Comments' }
-	" Define some descriptions
-	let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
-	let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
+	let g:lmap.o = { 'name' : 'Open' }
+	let g:lmap.o.o = ['copen', 'quickfix']
+	let g:lmap.o.l = ['lopen', 'locationlist']
 	" The Descriptions for other mappings defined by NerdCommenter, will default
 	" to their respective commands.
 	let g:maplocalleader = ','
@@ -55,11 +53,9 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort
 	let g:topdict = { ' ': g:lmap, ',': g:llmap }
 	" register it with the guide:
 	call leaderGuide#register_prefix_descriptions("", "g:topdict")
-endfunction
-"}}}
+endfunction "}}}
 
-"{{{ 定义键映射
-function! unite#sources#plugins#vim_leader_guide#define_mappings() abort
+function! unite#sources#plugins#vim_leader_guide#define_mappings() abort "{{{ 定义键映射
   nnoremap <Plug>(list-marks) :marks<CR>
   nnoremap <Plug>(current-directory) :cd %:p:h<CR>
   nnoremap <Plug>(delete-buffer)  :bd!<CR>
@@ -84,10 +80,6 @@ function! unite#sources#plugins#vim_leader_guide#define_mappings() abort
   else
     nnoremap <Plug>(do-make)  :make<CR>
   endif
-  if exists(':VimFilerBufferDir')
-    nnoremap <Plug>(open-buffer-directory) 	:VimFilerBufferDir<CR>
-    nnoremap <Plug>(open-current-directory) :VimFilerCurrentDir<CR>
-  endif
   if exists(':VimFilerExplorer')
     nnoremap <Plug>(open-explorer) :VimFilerExplorer<CR>
   endif
@@ -109,11 +101,9 @@ function! unite#sources#plugins#vim_leader_guide#define_mappings() abort
 	endif
 	nnoremap 	<Plug>(leaderguide-global) 	:LeaderGuide g:mapleader<CR>
 	nnoremap 	<Plug>(leaderguide-local) 	:LeaderGuide g:maplocalleader<CR>
-endfunction
-"}}}
+endfunction "}}}
 
-"{{{ 绑定快捷键
-function! unite#sources#plugins#vim_leader_guide#bind_keys() abort
+function! unite#sources#plugins#vim_leader_guide#bind_keys() abort "{{{ 绑定快捷键
   nnoremap <C-s>   :w!<cr>
   nnoremap ]f :next<CR>
   nnoremap [f :prev<CR>
@@ -123,34 +113,23 @@ function! unite#sources#plugins#vim_leader_guide#bind_keys() abort
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
-	nmap 			<silent> 	<Leader>d				<Plug>(delete-buffer)
-	nmap 			<silent> 	<Leader>fb			<Plug>(open-buffer-directory)
-	nmap 			<silent> 	<Leader>fc			<Plug>(open-current-directory)
-	nmap 			<silent> 	<Leader>fd				<Plug>(current-directory)
-	nmap 			<silent> 	<Leader>fe			<Plug>(open-explorer)
-	nmap 			<silent> 	<Leader>fs			<Plug>(source-buffer)
-	nmap 			<silent> 	<Leader>fw			<Plug>(write-buffer)
-	nmap 			<silent> 	<Leader>l				<Plug>(list-marks)
+	nmap 			<silent> 	<Leader>fd			<Plug>(current-directory)
+	nmap 			<silent> 	<Leader>fl			<Plug>(list-marks)
 	nnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuide '<Space>'<CR>
 	vnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuideVisual '<Space>'<CR>
 	map 			<silent> 	<leader>. 			<Plug>leaderguide-global
 	nnoremap 						<localleader> 	:<c-u>LeaderGuide  ','<CR>
 	vnoremap 						<localleader> 	:<c-u>LeaderGuideVisual  ','<CR>
 	map 								<localleader>. 	<Plug>leaderguide-buffer
-endfunction
-"}}}
+endfunction "}}}
 
-"{{{ 定义函数: copy_current_filepath
-function! s:copy_current_filepath() abort
+function! s:copy_current_filepath() abort "{{{ 
   let @+ = expand('%:p')
-endfunction
-"}}}
+endfunction "}}}
 
-"{{{ 定义函数: edit_vimrc
-function! s:edit_vimrc() abort
+function! s:edit_vimrc() abort "{{{ 
   let vimrc = expand($VIM . '/vimfiles/plugin')
   exe 'edit ' . vimrc
-endfunction
-"}}}
+endfunction "}}}
 
 " vim: fdm=marker
