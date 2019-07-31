@@ -118,10 +118,10 @@ function! unite#sources#plugins#vim_leader_guide#bind_keys() abort
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
-	nmap <silent> <Leader> <Plug>(leaderguide-global)
-	nmap <silent> <LocalLeader> <Plug>(leaderguide-local)
-	" nmap <silent> <Leader> <Plug>leaderguide-global
-	" nmap <silent> <LocalLeader> <Plug>leaderguide-buffer
+	" nmap <silent> <Leader> <Plug>(leaderguide-global)
+	" nmap <silent> <LocalLeader> <Plug>(leaderguide-local)
+	nmap <silent> <Leader> <Plug>leaderguide-global
+	nmap <silent> <LocalLeader> <Plug>leaderguide-buffer
 endfunction
 "}}}
 
