@@ -13,7 +13,7 @@ endif
 
 augroup vim_startup
   autocmd!
-  autocmd   VimEnter  *   LoadAllPlugins
+  autocmd   VimEnter  *   call unite#sources#plugins#init() 
   autocmd   VimEnter  *   Startify
 augroup END
 

@@ -1,3 +1,10 @@
+function! unite#sources#plugins#define() 
+  return s:source
+endfunction
+
+function! unite#sources#plugins#init() 
+	call s:source.gather_candidates({}, {})
+endfunction
 
 let s:source = {
 			\ 	'name': 'plugins',
@@ -7,9 +14,9 @@ let s:source = {
 			\ 	'hooks': {
 			\ 			'on_syntax': function('unite#sources#plugins#on_syntax'),
 			\ 	},
-			\ 	'default_action': 'load',
+			\ 	'default_action': 'open',
 			\ 	'action_table': {
-			\ 	   'load' : {
+			\ 	   'open' : {
 			\ 	     'description' : 'load plugin',
 			\ 	     'is_selectable' : 0,
 			\ 	   },
@@ -22,26 +29,20 @@ let s:disabled_plugins = [
 			\     'YouCompleteMe'
 			\ ]
 
-function! unite#sources#plugins#define() 
-  return s:source
-endfunction
-
-function! unite#sources#plugins#gather_candiates() abort
-	return s:source.gather_candidates({}, {})
-endfunction
-
-function! unite#sources#plugins#on_syntax() abort
-	return s:source.hooks.on_syntax({}, {})
-endfunction
-
 function! s:load_plugin() dict
 	if !self.is_loaded && self.is_enabled
 		exec 'set rtp+=' . self.directory
 		let scripts = filter(self.scripts, 'filereadable(v:val)')
 		call map(scripts, function('<SID>source_file'))
+		if exists(self.on_init)
+			exec 'call ' . self.on_init
+		else
+			" catch /^Vim(call):E117: Unknown function/	" 捕获错误和中断
+			" echom 'function ' . self.on_init . ' is not found'
+		endif
 		let self.is_loaded = v:true
 	else
-		echom 'plugin ' . self.word . ' has been disabled'
+		echom 'plugin ' . self.name . ' has been disabled'
 	endif
 endfunction
 
@@ -62,6 +63,8 @@ function! s:new_plugin(index, directory) abort
 	else
 		let s:available_plugins[a:index] = plugin
 	endif
+	let func_name = substitute(plugin.name, '-', '_', 'g')
+	let plugin.on_init = 'unite#sources#plugins#' .  func_name . '#on_init'
 	call plugin.load()
 	return plugin
 endfunction
@@ -82,7 +85,7 @@ function! s:source.hooks.on_syntax(args, context) abort "{{{
   highlight default link uniteSource__Plugins_Disabled Exception
 endfunction "}}}
 
-function! s:source.action_table.load.func(candidate) abort
+function! s:source.action_table.open.func(candidate) abort
 	if has_key(a:candidate, 'load')
 		call a:candidate.load()
 	endif
