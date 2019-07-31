@@ -8,50 +8,53 @@
 " ============================================================================
 
 "{{{ 初始化
-function! unite#sources#plugins#vim_leader_guide#on_init() abort
+function! unite#sources#plugins#vim_leader_guide#after_load() abort
 	call unite#sources#plugins#vim_leader_guide#set_variables()
 	call unite#sources#plugins#vim_leader_guide#define_mappings()
 	call unite#sources#plugins#vim_leader_guide#bind_keys()
+	echom 'vim leader guide initliazed.'
 endfunction
-"}}}
+	"}}}
 
 "{{{ 设置变量
 function! unite#sources#plugins#vim_leader_guide#set_variables() abort
-  let g:mapleader = ' '
-  let g:maplocalleader = ','
+	let g:mapleader = ' '
 	" Define prefix dictionary
-	let g:leaderGuide_map =  {
-				\ 	'f': {
-				\ 					'name': 'File Menu',
-				\ 					'b'		: ['VimFilerBufferDir', 'vimfiler-buffer'],
-				\ 					'c'		: ['VimFilerCurrentDir', 'vimfiler-current'],
-				\ 					'e'		: ['VimFilerExplorer', 'vimfiler-explorer'],
-				\ 					's'		: ['source %', 'source buffer'],
-				\ 					'w'		: ['write', 'save file'],
-				\ 			 },
-				\ 	'g': {
-				\						'name': 'Git Menu',
-				\						's' 	: ['Gstatus', 'Git Status'],
-				\						'p' 	: ['Gpull',   'Git Pull'],
-				\						'u' 	: ['Gpush',   'Git Push'],
-				\						'c' 	: ['Gcommit', 'Git Commit'],
-				\						'w' 	: ['Gwrite',  'Git Write'],
-				\				},
+	let g:lmap =  { 'name' : '<Leader>' }
+	" Second level dictionaries:
+	let g:lmap.f = { 	'name' : 'File' }
+	" Create new menus not based on existing mappings:
+	let g:lmap.g = {
+				\		'name' : 'Git',
+				\		's' : ['Gstatus', 'Git Status'],
+				\		'p' : ['Gpull',   'Git Pull'],
+				\		'u' : ['Gpush',   'Git Push'],
+				\		'c' : ['Gcommit', 'Git Commit'],
 				\ }
-	" " Second level dictionaries:
-	" let g:lmap.f = { 'name' : 'File Menu' }
-	" " Provide commands and descriptions for existing mappings
-	" let g:lmap.o = { 'name' : 'Open Stuff' }
-	" let g:lmap.o.o = ['<Plug>(open-quickfix)', 'open quickfix']
-	" let g:lmap.o.l = ['<Plug>(open-locations)', 'open locationlist']
-	" " Create new menus not based on existing mappings:
-	" " If you use NERDCommenter:
-	" let g:lmap.c = { 'name' : 'Comments' }
-	" " Define some descriptions
-	" let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
-	" let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
+	let g:lmap.o = { 'name' : 'open' }
+	" Provide commands and descriptions for existing mappings
+	let g:lmap.f.b = ['<Plug>(open-buffer-directory)', 'open buffer directory']
+	let g:lmap.o.o = ['copen', 'Open quickfix']
+	let g:lmap.o.l = ['lopen', 'Open locationlist']
+	" If you use NERDCommenter:
+	let g:lmap.c = { 'name' : 'Comments' }
+	" Define some descriptions
+	let g:lmap.c.c = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
+	let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
 	" The Descriptions for other mappings defined by NerdCommenter, will default
 	" to their respective commands.
+	let g:maplocalleader = ','
+	" set up dictionary for <localleader>
+	let g:llmap = { 'name': '<localleader>' }
+	autocmd FileType tex let g:llmap.l = { 'name' : 'vimtex' }
+	call leaderGuide#register_prefix_descriptions(",", "g:llmap")
+	" to name the <localleader>-n group vimtex in tex files.
+	let g:leaderGuide_max_size = 5
+	let g:leaderGuide_submode_mappings = { '<C-F>': 'page_down', '<C-B>': 'page_up'}
+	" combine the two dictionaries into a single top-level dictionary:
+	let g:topdict = { ' ': g:lmap, ',': g:llmap }
+	" register it with the guide:
+	call leaderGuide#register_prefix_descriptions("", "g:topdict")
 endfunction
 "}}}
 
@@ -82,9 +85,8 @@ function! unite#sources#plugins#vim_leader_guide#define_mappings() abort
     nnoremap <Plug>(do-make)  :make<CR>
   endif
   if exists(':VimFilerBufferDir')
-    nnoremap <Plug>(find-file) :VimFilerBufferDir<CR>
-  else
-    nnoremap <Plug>(find-file) :edit . <CR>
+    nnoremap <Plug>(open-buffer-directory) 	:VimFilerBufferDir<CR>
+    nnoremap <Plug>(open-current-directory) :VimFilerCurrentDir<CR>
   endif
   if exists(':VimFilerExplorer')
     nnoremap <Plug>(open-explorer) :VimFilerExplorer<CR>
@@ -94,16 +96,19 @@ function! unite#sources#plugins#vim_leader_guide#define_mappings() abort
   endif
   if exists(':Gstatus')
     nnoremap <Plug>(git-status) :Gstatus<CR>
-  endif
-  if exists(':Unite')
-    nnoremap <Plug>(unite-source)   :Unite source<CR>
-    nnoremap <Plug>(unite-buffer)   :Unite -start-insert buffer<CR>
-    nnoremap <Plug>(unite-file)     :Unite -start-insert file_rec<CR>
-    nnoremap <Plug>(unite-history)  :Unite -start-insert file_mru directory_mru<CR>
-    nnoremap <Plug>(unite-outline)  :Unite outline<CR>
-  endif
-	nnoremap 	<Plug>(leaderguide-global) 	:LeaderGuideD g:leaderGuide_map<CR>
-	nnoremap 	<Plug>(leaderguide-local) 	:LeaderGuideD b:leaderGuide_map<CR>
+		nnoremap <Plug>(git-pull) 	:Gpull<CR>
+		nnoremap <Plug>(git-push)		:Gpush<CR>
+		nnoremap <Plug>(git-commit)	:Gcommit<CR>
+	endif
+	if exists(':Unite')
+		nnoremap <Plug>(unite-source)   :Unite source<CR>
+		nnoremap <Plug>(unite-buffer)   :Unite -start-insert buffer<CR>
+		nnoremap <Plug>(unite-file)     :Unite -start-insert file_rec<CR>
+		nnoremap <Plug>(unite-history)  :Unite -start-insert file_mru directory_mru<CR>
+		nnoremap <Plug>(unite-outline)  :Unite outline<CR>
+	endif
+	nnoremap 	<Plug>(leaderguide-global) 	:LeaderGuide g:mapleader<CR>
+	nnoremap 	<Plug>(leaderguide-local) 	:LeaderGuide g:maplocalleader<CR>
 endfunction
 "}}}
 
@@ -118,10 +123,20 @@ function! unite#sources#plugins#vim_leader_guide#bind_keys() abort
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
-	" nmap <silent> <Leader> <Plug>(leaderguide-global)
-	" nmap <silent> <LocalLeader> <Plug>(leaderguide-local)
-	nmap <silent> <Leader> <Plug>leaderguide-global
-	nmap <silent> <LocalLeader> <Plug>leaderguide-buffer
+	nmap 			<silent> 	<Leader>d				<Plug>(delete-buffer)
+	nmap 			<silent> 	<Leader>fb			<Plug>(open-buffer-directory)
+	nmap 			<silent> 	<Leader>fc			<Plug>(open-current-directory)
+	nmap 			<silent> 	<Leader>fd				<Plug>(current-directory)
+	nmap 			<silent> 	<Leader>fe			<Plug>(open-explorer)
+	nmap 			<silent> 	<Leader>fs			<Plug>(source-buffer)
+	nmap 			<silent> 	<Leader>fw			<Plug>(write-buffer)
+	nmap 			<silent> 	<Leader>l				<Plug>(list-marks)
+	nnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuide '<Space>'<CR>
+	vnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuideVisual '<Space>'<CR>
+	map 			<silent> 	<leader>. 			<Plug>leaderguide-global
+	nnoremap 						<localleader> 	:<c-u>LeaderGuide  ','<CR>
+	vnoremap 						<localleader> 	:<c-u>LeaderGuideVisual  ','<CR>
+	map 								<localleader>. 	<Plug>leaderguide-buffer
 endfunction
 "}}}
 
