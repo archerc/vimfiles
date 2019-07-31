@@ -37,6 +37,7 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ è®¾ç
 	let g:lmap.f.l 	= ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
 	let g:lmap.g = { 	'name' : 'Git' }
   let g:lmap.g.c = ['Gcommit', 'Git Commit']
+	let g:lmap.g.g = { 	'name' : 'GitGutter' }
   let g:lmap.g.m = ["call magit#show_magit('v')",   'Magit']
   let g:lmap.g.p = ['AsyncRun Git pull',   'Git Pull']
   let g:lmap.g.s = ['Gstatus', 'Git Status']
@@ -125,6 +126,11 @@ function! unite#sources#plugins#vim_leader_guide#bind_keys() abort "{{{ ç»‘å®šå¿
   nnoremap [t :tprev<CR>
 	nmap 			<silent> 	<Leader>fd			<Plug>(current-directory)
 	nmap 			<silent> 	<Leader>fl			<Plug>(list-marks)
+	nmap 			<silent> 	<Leader>gg]			<Plug>GitGutterNextHunk
+	nmap 			<silent> 	<Leader>gg[			<Plug>GitGutterPrevHunk
+	nmap 			<silent> 	<Leader>ggp			<Plug>GitGutterPreviewHunk
+	nmap 			<silent> 	<Leader>ggs			<Plug>GitGutterStageHunk
+	nmap 			<silent> 	<Leader>ggu			<Plug>GitGutterUndoHunk
 	nnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuide '<Space>'<CR>
 	vnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuideVisual '<Space>'<CR>
 	map 			<silent> 	<leader>. 			<Plug>leaderguide-global
