@@ -15,7 +15,7 @@ set nocompatible
 set encoding=utf-8
 set termencoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,gb18030
-set lines=45 columns=80
+set lines=39 columns=150
 set number
 set ruler
 set showcmd

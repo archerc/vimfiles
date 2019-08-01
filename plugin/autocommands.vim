@@ -14,6 +14,7 @@ endif
 augroup vim_startup
   autocmd!
   autocmd   VimEnter  *   call unite#sources#plugins#default#init()
+  autocmd   VimEnter  *   Startify
 augroup END
 
 augroup gitcommit
