@@ -49,6 +49,9 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ è®¾ç
 	let lmap.o = { 'name' : 'Open' }
 	let lmap.o.o = ['copen', 'quickfix']
 	let lmap.o.l = ['lopen', 'locationlist']
+	let lmap.t = { 'name' : 'Toggle' }
+	let lmap.t.b = ['ToggleBufExplorer',                      'buffer']
+	let lmap.t.f = ['ToggleFullScreen',                       'fullscreen']
 	let lmap.u = { 	'name': 'Unite' }
 	let lmap.u.b = ['Unite -start-insert buffer',							'buffer']
 	let lmap.u.d = ['Unite -start-insert neomru/directory',		'file']
@@ -79,6 +82,7 @@ function! unite#sources#plugins#vim_leader_guide#define_mappings() abort "{{{ å®
   nnoremap <Plug>(write-buffer)   :w! %<CR>
   nnoremap <Plug>(open-quickfix)  :copen<CR>
   nnoremap <Plug>(open-locations) :lopen<CR>
+  nnoremap <Plug>(toggle-fold)    :exec 'normal ' . (foldclosed('.')>0?'zo':'zc')<CR>
   " by functions
   nnoremap <Plug>(copy-filepath) :call <SID>copy_current_filepath()<CR>
   nnoremap <Plug>(edit-vimrc) :call <SID>edit_vimrc()<CR>
@@ -129,19 +133,20 @@ function! unite#sources#plugins#vim_leader_guide#bind_keys() abort "{{{ ç»‘å®šå¿
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
-	nmap 			<silent> 	<Leader>fd			<Plug>(current-directory)
-	nmap 			<silent> 	<Leader>fl			<Plug>(list-marks)
-	nmap 			<silent> 	<Leader>gg]			<Plug>GitGutterNextHunk
-	nmap 			<silent> 	<Leader>gg[			<Plug>GitGutterPrevHunk
-	nmap 			<silent> 	<Leader>ggp			<Plug>GitGutterPreviewHunk
-	nmap 			<silent> 	<Leader>ggs			<Plug>GitGutterStageHunk
-	nmap 			<silent> 	<Leader>ggu			<Plug>GitGutterUndoHunk
-	nnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuide '<Space>'<CR>
-	vnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuideVisual '<Space>'<CR>
-	map 			<silent> 	<leader>. 			<Plug>leaderguide-global
-	nnoremap 						<localleader> 	:<c-u>LeaderGuide  ','<CR>
-	vnoremap 						<localleader> 	:<c-u>LeaderGuideVisual  ','<CR>
-	map 								<localleader>. 	<Plug>leaderguide-buffer
+  nmap 			<silent> 	<Leader>fd			<Plug>(current-directory)
+  nmap 			<silent> 	<Leader>fl			<Plug>(list-marks)
+  nmap 			<silent> 	<Leader>gg]			<Plug>GitGutterNextHunk
+  nmap 			<silent> 	<Leader>gg[			<Plug>GitGutterPrevHunk
+  nmap 			<silent> 	<Leader>ggp			<Plug>GitGutterPreviewHunk
+  nmap 			<silent> 	<Leader>ggs			<Plug>GitGutterStageHunk
+  nmap 			<silent> 	<Leader>ggu			<Plug>GitGutterUndoHunk
+  nmap 			<silent> 	<Leader>tf 			<Plug>(toggle-fold)
+  nnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuide '<Space>'<CR>
+  vnoremap 	<silent> 	<leader> 				:<c-u>LeaderGuideVisual '<Space>'<CR>
+  map 			<silent> 	<leader>. 			<Plug>leaderguide-global
+  nnoremap 						<localleader> 	:<c-u>LeaderGuide  ','<CR>
+  vnoremap 						<localleader> 	:<c-u>LeaderGuideVisual  ','<CR>
+  map 								<localleader>. 	<Plug>leaderguide-buffer
 endfunction "}}}
 
 function! s:copy_current_filepath() abort "{{{ 
@@ -153,4 +158,3 @@ function! s:edit_vimrc() abort "{{{
   exe 'edit ' . vimrc
 endfunction "}}}
 
-" vim: fdm=marker
