@@ -16,6 +16,10 @@ endfunction "}}}
 function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ 设置变量
 	let g:mapleader = ' '
 	let g:lmap 			=  { 'name' : '<Leader>' }
+	let g:lmap.a 		= { 'name' : 'Applications' }
+	let g:lmap.a.t  = ['VimShell', 									'terminal']
+	let g:lmap.a.s  = ['Startify', 									'startify']
+	let g:lmap.a.f  = ['call ToggleFullScreen()', 	'fullscreen']
 	let g:lmap.b 		= { 'name' : 'Buffer' }
 	let g:lmap.b.d 	= ['bd!', 					'delete']
 	let g:lmap.b.e 	= ['BufExplorer', 	'explorer']
