@@ -15,55 +15,60 @@ endfunction "}}}
 
 function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ 设置变量
 	let g:mapleader = ' '
-	let g:lmap 			=  { 'name' : '<Leader>' }
-	let g:lmap.b 		= { 'name' : 'Buffer' }
-	let g:lmap.b.d 	= ['bd!', 					'delete']
-	let g:lmap.b.e 	= ['BufExplorer', 	'explorer']
-	let g:lmap.b.n 	= ['bnext', 				'next']
-	let g:lmap.b.p 	= ['bprev %', 			'previous']
-	let g:lmap.b.s 	= ['source %', 			'source']
-	let g:lmap.b.w 	= ['write', 				'write']
-	let g:lmap.c 		= { 'name' : 'Comments' }
+	let lmap 			=  { 'name' : '<Leader>' }
+	let lmap.a 		= { 'name' : 'Applications' }
+	let lmap.a.t  = ['VimShell', 									'terminal']
+	let lmap.a.s  = ['Startify', 									'startify']
+	let lmap.a.f  = ['call ToggleFullScreen()', 	'fullscreen']
+	let lmap.b 		= { 'name' : 'Buffer' }
+	let lmap.b.d 	= ['bd!', 					'delete']
+	let lmap.b.e 	= ['BufExplorer', 	'explorer']
+	let lmap.b.n 	= ['bnext', 				'next']
+	let lmap.b.p 	= ['bprev %', 			'previous']
+	let lmap.b.s 	= ['source %', 			'source']
+	let lmap.b.w 	= ['write', 				'write']
+	let lmap.c 		= { 'name' : 'Comments' }
 	" Define some descriptions
-	let g:lmap.c.c 	= ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
-	let g:lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
-	let g:lmap.c.d 	= [ 'cd %:p:h', 		'current directory' ]
-	let g:lmap.f 		= { 	'name' : 'File' }
-	let g:lmap.f.b 	= ['VimFilerBufferDir', 	'buffer directory']
-	let g:lmap.f.c 	= ['VimFilerCurrentDir', 'current directory']
-	let g:lmap.f.e 	= ['VimFilerExplorer', 	'explorer']
-	let g:lmap.f.f 	= ['VimFiler', 					'vimfiler']
-	let g:lmap.f.s 	= ['Startify', 					'startify']
-	let g:lmap.f.l 	= ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
-	let g:lmap.g = { 	'name' : 'Git' }
-  let g:lmap.g.c = ['Gcommit', 'Git Commit']
-	let g:lmap.g.g = { 	'name' : 'GitGutter' }
-  let g:lmap.g.m = ["call magit#show_magit('v')",   'Magit']
-  let g:lmap.g.p = ['AsyncRun Git pull',   'Git Pull']
-  let g:lmap.g.s = ['Gstatus', 'Git Status']
-  let g:lmap.g.u = ['AsyncRun Git push',   'Git Push']
-	let g:lmap.o = { 'name' : 'Open' }
-	let g:lmap.o.o = ['copen', 'quickfix']
-	let g:lmap.o.l = ['lopen', 'locationlist']
-	let g:lmap.u = { 	'name': 'Unite' }
-	let g:lmap.u.b = ['Unite buffer',					'buffer']
-	let g:lmap.u.f = ['Unite file_rec/async',	'file']
-	let g:lmap.u.o = ['Unite outline',				'outline']
-	let g:lmap.u.s = ['Unite source',					'source']
+	let lmap.c.c 	= ['call feedkeys("\<Plug>NERDCommenterToggle")','Toggle']
+	let lmap.c[' '] = ['call feedkeys("\<Plug>NERDCommenterComment")','Comment']
+	let lmap.c.d 	= [ 'cd %:p:h', 		'current directory' ]
+	let lmap.f 		= { 	'name' : 'File' }
+	let lmap.f.b 	= ['VimFilerBufferDir', 	'buffer directory']
+	let lmap.f.c 	= ['VimFilerCurrentDir', 'current directory']
+	let lmap.f.e 	= ['VimFilerExplorer', 	'explorer']
+	let lmap.f.f 	= ['VimFiler', 					'vimfiler']
+	let lmap.f.s 	= ['Startify', 					'startify']
+	let lmap.f.l 	= ['call unite#sources#plugins#vim_leader_guide#after_load()', 'reload']
+	let lmap.g = { 	'name' : 'Git' }
+  let lmap.g.c = ['Gcommit', 'Git Commit']
+	let lmap.g.g = { 	'name' : 'GitGutter' }
+  let lmap.g.m = ["call magit#show_magit('v')",   'Magit']
+  let lmap.g.p = ['AsyncRun Git pull',   'Git Pull']
+  let lmap.g.s = ['Gstatus', 'Git Status']
+  let lmap.g.u = ['AsyncRun Git push',   'Git Push']
+	let lmap.o = { 'name' : 'Open' }
+	let lmap.o.o = ['copen', 'quickfix']
+	let lmap.o.l = ['lopen', 'locationlist']
+	let lmap.u = { 	'name': 'Unite' }
+	let lmap.u.b = ['Unite -start-insert buffer',							'buffer']
+	let lmap.u.d = ['Unite -start-insert neomru/directory',		'file']
+	let lmap.u.f = ['Unite -start-insert neomru/file',				'file']
+	let lmap.u.o = ['Unite -start-insert outline',						'outline']
+	let lmap.u.s = ['Unite -start-insert source',							'source']
 	" The Descriptions for other mappings defined by NerdCommenter, will default
 	" to their respective commands.
 	let g:maplocalleader = ','
 	" set up dictionary for <localleader>
 	let g:llmap = { 'name': '<localleader>' }
 	autocmd FileType tex let g:llmap.l = { 'name' : 'vimtex' }
-	call leaderGuide#register_prefix_descriptions(",", "g:llmap")
+	" call leaderGuide#register_prefix_descriptions(",", "g:llmap")
 	" to name the <localleader>-n group vimtex in tex files.
 	let g:leaderGuide_max_size = 5
 	let g:leaderGuide_submode_mappings = { '<C-F>': 'page_down', '<C-B>': 'page_up'}
 	" combine the two dictionaries into a single top-level dictionary:
-	let g:topdict = { ' ': g:lmap, ',': g:llmap }
+	let g:leaderGuide_map = { ' ': lmap, ',': g:llmap }
 	" register it with the guide:
-	call leaderGuide#register_prefix_descriptions("", "g:topdict")
+	call leaderGuide#register_prefix_descriptions("", "g:leaderGuide_map")
 endfunction "}}}
 
 function! unite#sources#plugins#vim_leader_guide#define_mappings() abort "{{{ 定义键映射

@@ -31,24 +31,33 @@ function! AddToRuntimePath(path) abort
   return rtp
 endfunction
 
-function! SetupPython() abort
-  " let g:python3_home = get(g:, 'python3_home', expand($VIM . '/Python3.7.3'))
-  let g:python3_home = fnamemodify($VIM . '/../Anaconda3', ':p:h')
-  let g:python3_dll = get(g:, 'python3_dll', expand(g:python3_home . '/python37.dll'))
-  let g:UltiSnipsUsePythonVersion = 3
-  let g:_uspy = 'py3'
-  if isdirectory(g:python3_home)
-    if filereadable(g:python3_dll)
-      let &pythonthreehome = g:python3_home
-      let &pythonthreedll = g:python3_dll
+" let g:python3_home = fnamemodify($VIM . '/../Anaconda3', ':p:h')
+let g:python3_home = fnamemodify($VIM . '/Python3.7.3', ':p')
+
+function! SetupPython(python3_home) abort
+  let python3_home = get(a:, 'python3_home', g:python3_home)
+  echo 'python3_home is set to ' . python3_home 
+  if isdirectory(python3_home)
+    let python3_dll = expand(python3_home . '/python37.dll')
+    echo 'python3_dll is set to ' . python3_dll
+    if filereadable(python3_dll)
+      echo 'setting pythonthreehome to ' . python3_home
+      let &pythonthreehome = python3_home
+      let &pythonthreedll = python3_dll
+      let g:UltiSnipsUsePythonVersion = 3
+      let g:_uspy = 'py3'
+    else
+      echo 'file ' . python3_dll . ' is not readable.'
     endif
+  else
+    echo 'directory ' . python3_home . ' does not exist.'
   endif
   return has('python3')
 endfunction
 
 augroup pyenv
   autocmd!
-  autocmd VimEnter * call SetupPython()
+  "autocmd VimEnter * call SetupPython()
 augroup END
 
 let g:UltiSnipsSnippetsDir = expand($VIM . '/vimfiles/UltiSnips')

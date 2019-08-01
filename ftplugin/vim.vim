@@ -1,10 +1,12 @@
+if exists("b:did_vim_ftplugin")
+	finish
+endif
+
+let b:did_vim_ftplugin = 1
+
 setlocal tabstop=2
 setlocal shiftwidth=2
 setlocal fdm=marker
-setlocal cms=\ \"%s
+setlocal cms=\ \"\ %s
+echom 'filetype set to vim'
 
-augroup vim_filetype
-	autocmd!
-	autocmd BufReadPost 	*.vim,vimrc,_vimrc :setlocal cms=\ \"%s
-	"autocmd BufWritePost 	*.vim,vimrc,_vimrc :source <sfile>
-augroup END
