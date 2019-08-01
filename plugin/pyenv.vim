@@ -11,15 +11,11 @@ if exists('g:did_plugin_pyenv') && g:did_plugin_pyenv
   finish
 endif
 
-let pythonhome = fnamemodify($VIM . '/Python37', ':p')
-if isdirectory(pythonhome)
-  let $PYTHONHOME = pythonhome
-  let $PYTHONPATH = fnamemodify(pythonhome . '/lib', ':p')
-  let $pythonthreehome = pythonhome
-  let $pythonthreedll = fnamemodify(pythonhome . '/python37.dll', ':p')
-  :py3 << EOF
-print('python setup finished')
-EOF
-endif
+function! CheckPython() " {{{
+  if has('python3')
+    py3 import sys
+    py3 print(sys.path)
+  endif
+endfunction " }}}
 
 let g:did_plugin_pyenv = 1

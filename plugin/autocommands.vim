@@ -14,6 +14,7 @@ endif
 augroup vim_startup
   autocmd!
   autocmd   VimEnter  *   call unite#sources#plugins#default#init()
+  autocmd   VimEnter  *   call CheckPython()
   autocmd   VimEnter  *   Startify
 augroup END
 
