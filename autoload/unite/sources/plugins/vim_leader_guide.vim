@@ -46,10 +46,11 @@ function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ шо╛ч
 	let g:lmap.o.o = ['copen', 'quickfix']
 	let g:lmap.o.l = ['lopen', 'locationlist']
 	let g:lmap.u = { 	'name': 'Unite' }
-	let g:lmap.u.b = ['Unite buffer',					'buffer']
-	let g:lmap.u.f = ['Unite file_rec/async',	'file']
-	let g:lmap.u.o = ['Unite outline',				'outline']
-	let g:lmap.u.s = ['Unite source',					'source']
+	let g:lmap.u.b = ['Unite -start-insert buffer',							'buffer']
+	let g:lmap.u.d = ['Unite -start-insert neomru/directory',		'file']
+	let g:lmap.u.f = ['Unite -start-insert neomru/file',				'file']
+	let g:lmap.u.o = ['Unite -start-insert outline',						'outline']
+	let g:lmap.u.s = ['Unite -start-insert source',							'source']
 	" The Descriptions for other mappings defined by NerdCommenter, will default
 	" to their respective commands.
 	let g:maplocalleader = ','
