@@ -11,6 +11,7 @@ function! unite#sources#plugins#vim_leader_guide#after_load() abort "{{{ 初始�
 	call unite#sources#plugins#vim_leader_guide#set_variables()
 	call unite#sources#plugins#vim_leader_guide#define_mappings()
 	call unite#sources#plugins#vim_leader_guide#bind_keys()
+  return v:true
 endfunction "}}}
 
 function! unite#sources#plugins#vim_leader_guide#set_variables() abort "{{{ 设置变量
