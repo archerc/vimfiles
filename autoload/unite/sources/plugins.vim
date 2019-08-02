@@ -53,7 +53,6 @@ let s:source = {
 			\ 	}
 			\ }
 let s:disabled_plugins = [
-			\     'ultisnips',
 			\     'YouCompleteMe'
 			\ ]
 
@@ -69,13 +68,13 @@ function! s:load_plugin() dict "{{{
 		return
 	endif
 	exec 'set rtp+=' . self.directory
-	if get(g:, 'hook_before_load', v:false)
+	if get(g:, 'hook_before_load', v:true)
 		call self.run_hook('before_load')
 	endif
 	if get(g:, 'hook_on_load', v:true)
 		let self.is_loaded = self.run_hook('on_load')
 	endif
-	if get(g:, 'hook_after_load', v:false)
+	if get(g:, 'hook_after_load', v:true)
 		call self.run_hook('after_load')
 	endif
 endfunction "}}}
