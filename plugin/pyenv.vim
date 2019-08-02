@@ -13,7 +13,10 @@ endif
 
 function! CheckPython() " {{{
   if has('python3')
+    let $PYTHONHOME = ''
+    let $PYTHONPATH = ''
     py3 import sys
+    py3 print(sys.executable)
     py3 print(sys.path)
   endif
 endfunction " }}}
