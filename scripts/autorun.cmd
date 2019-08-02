@@ -21,7 +21,7 @@ set PANDOC_BIN=D:\Programs\Anaconda3\Scripts
 set VIM_BIN=D:\Programs\Vim\vim81
 set GTAGS_BIN=D:\Programs\global\bin
 set TEX_BIN=D:\Programs\texlive\2018\bin\win32
-set PATH=%SYSTEM_PATH%;%VIM_BIN%;%GTAGS_BIN%;%TEX_BIN%;%GIT_BIN%;%CONDA_BIN%
+set PATH=%SYSTEM_PATH%;%VIM_BIN%;%GTAGS_BIN%;%TEX_BIN%;%GIT_BIN%;%CONDA_BIN%;%~dp0%
 
 REM …Ë÷√√¸¡ÓÃ· æ∑˚
 prompt $P$G$_$D$B$T$G$S$$$S
