@@ -53,7 +53,8 @@ let s:source = {
 			\ 	}
 			\ }
 let s:disabled_plugins = [
-			\     'YouCompleteMe'
+      \   'ultisnips',
+			\   'YouCompleteMe'
 			\ ]
 
  "}}}
