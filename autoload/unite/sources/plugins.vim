@@ -59,40 +59,32 @@ let s:disabled_plugins = [
  "}}}
 
 function! s:load_plugin() dict "{{{
-	if !self.is_enabled()
-		silent echom 'plugin ' . self.name . ' has been disabled'
-		return
-	endif
-	if self.is_loaded 
-		silent echom 'plugin ' . self.name . ' has been loaded'
-		return
-	endif
-	exec 'set rtp+=' . self.directory
-	if get(g:, 'hook_before_load', v:false)
-		call self.run_hook('before_load')
-	endif
-	if get(g:, 'hook_on_load', v:true)
-		let self.is_loaded = self.run_hook('on_load')
-	endif
-	if get(g:, 'hook_after_load', v:false)
-		call self.run_hook('after_load')
-	endif
+  if !self.is_enabled()
+    silent echom 'plugin ' . self.name . ' has been disabled'
+    return
+  endif
+  if self.is_loaded 
+    silent echom 'plugin ' . self.name . ' has been loaded'
+    return
+  endif
+  if self.run_hook('before_load')
+    let self.is_loaded = self.run_hook('on_load') 
+    let self.is_loaded = self.is_loaded && self.run_hook('after_load')
+  endif
 endfunction "}}}
 
 function! s:run_hook(name, ...) dict "{{{
 	let escaped_name = substitute(self.name, '-', '_', 'g')
-	let default_func_name = 'unite#sources#plugins#default#' . a:name
 	let func_name = 'unite#sources#plugins#' . escaped_name . '#' . a:name
 	let args = (a:0 > 0) ? a:000 : []
-	let hook = { 
-				\ 	'global' : function(default_func_name, args, self),
-				\ 	'plugin' : function(func_name, args, self),
-				\ }
-	try
-		call hook.plugin()
-	catch /^Vim(call):E117: Unknown function/
-		call hook.global()
-	endtry
+  if exists('*' . func_name)
+    echom 'calling hook function ' . func_name . ' for ' . self.name
+    return call(func_name, args, self)
+  else
+    let default_func_name = 'unite#sources#plugins#default#' . a:name
+    "echom 'calling default hook function ' . default_func_name . ' for ' . self.name
+		return call(default_func_name, args, self)
+  endif
 endfunction "}}}
 
 function! s:is_enabled() dict "{{{

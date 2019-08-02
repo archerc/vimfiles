@@ -1,14 +1,22 @@
 function! unite#sources#plugins#default#on_load() dict  "{{{
+  exec 'set rtp+=' . self.directory
 	let scripts = unite#sources#plugins#default#list_directory(self.directory, 'plugin/*.vim')
-	call filter(scripts, 'filereadable(v:val)')
-	let results = copy(scripts)
-	call map(results, function('<SID>source_file'))
-	call filter(results, '!v:val')
-	return empty(results)
+  for file in scripts
+	  if filereadable(file)
+      if !s:source_file(self.index, file)
+        return v:false
+      endif
+    endif
+  endfor
+  return v:true
+endfunction "}}}
+
+function! unite#sources#plugins#default#before_load() dict  "{{{
+	return v:true
 endfunction "}}}
 
 function! unite#sources#plugins#default#after_load() dict  "{{{
-	return []
+	return v:true
 endfunction "}}}
 
 function! unite#sources#plugins#default#init()  "{{{
