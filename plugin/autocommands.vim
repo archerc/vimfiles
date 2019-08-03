@@ -11,11 +11,10 @@ if exists('g:loaded_autocmds') && g:loaded_autocmds
   finish
 endif
 
+command! LoadPlugins call plugin_manager#load_all_plugins()
 augroup vim_startup
   autocmd!
-  autocmd   VimEnter  *   call unite#sources#plugins#default#init()
-  autocmd   VimEnter  *   call CheckPython()
-  autocmd   VimEnter  *   Startify
+  autocmd   VimEnter  *   LoadPlugins
 augroup END
 
 augroup gitcommit

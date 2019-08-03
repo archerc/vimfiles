@@ -9,5 +9,4 @@ setlocal shiftwidth=2
 setlocal fdm=marker
 setlocal et
 setlocal cms=\ \"\ %s
-echom 'filetype set to vim'
 
