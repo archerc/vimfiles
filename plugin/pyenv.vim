@@ -12,15 +12,19 @@ if exists('g:did_plugin_pyenv') && g:did_plugin_pyenv
 endif
 
 function! CheckPython() " {{{
-  let $PYTHONHOME = ''
-  let $PYTHONPATH = ''
-  let &pythonthreehome = expand($VIM . '/Python3.7.3amd64')
-  let &pythonthreedll = expand(&pythonthreehome . '/python37.dll')
-  if has('python3')
-    py3 import sys
-    py3 print('Python 3 {} is found'.format(sys.executable))
+  set pythonthreedll&
+  let &pythonthreehome = fnamemodify($VIM . '/../Python/3.6.8.x86', ':p')
+  let &pythonthreedll = fnamemodify(&pythonthreehome . &pythonthreedll, ':p')
+  if filereadable(&pythonthreedll)
+    if has('python3')
+      py3 import sys
+      py3 print('Python {} is found'.format(sys.version))
+      py3 import vim_test
+    else
+      echom "Python 3 is not avaliable"
+    endif
   else
-    echom "Python 3 is not avaliable"
+    echom "Python dll " . &pythonthreedll . " is not readable."
   endif
 endfunction " }}}
 command! CheckPython call CheckPython()
