@@ -63,7 +63,6 @@ let g:topdict[' '].u.s = ['Unite -start-insert source',							'source']
 let g:topdict[','] = { 'name': '<localleader>' }
 
 function! plugin_manager#vim_leader_guide#before_load() abort "{{{ 初始化
-  echom 'loading vim_leader_guide '
   return v:true
 endfunction "}}}
 

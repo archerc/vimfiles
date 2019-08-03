@@ -30,6 +30,10 @@ let g:pymode_lint_error_symbol = 'EE'
 let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
 
+function! plugin_manager#python_mode#before_load()  abort 
+	return v:true
+endfunction
+
 function! plugin_manager#python_mode#after_load()  abort 
-	return v:false
+	return v:true
 endfunction

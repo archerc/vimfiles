@@ -21,12 +21,11 @@ function! plugin_manager#load_all_plugins() abort " {{{
   endfor
 endfunction " }}}
 
-let s:bundle = expand(fnamemodify('<sfile>', ':p:h:h') . '/bundle')
+let s:bundle = expand($VIM . '/vimfiles/bundle') 
 function! plugin_manager#available_plugins() abort " {{{
   let available_plugins = get(g:, 'available_plugins', s:available_plugins)
 	if empty(available_plugins)
 		let bundle = get(g:, 'bundle', s:bundle)
-    echom 'loading plugins from ' . bundle
 		for directory in plugin_manager#list_directory(bundle)
       " echom 'add plugin ' . directory
       let plugin = deepcopy(s:plugin)
@@ -34,6 +33,8 @@ function! plugin_manager#available_plugins() abort " {{{
         call add(available_plugins, plugin)
       end
     endfor
+  else
+    echom 'plugins has been loaded. skipping ... '
 	endif
   return available_plugins
 endfunction " }}}
@@ -113,7 +114,9 @@ function! s:plugin.run_hook(hook, ...) dict "{{{
   try
     let result = call(func_name, args, self)
     let self[a:hook] = function(func_name)
-    echom 'calling ' . func_name . ' returns ' . result
+    if !result
+      echom 'calling ' . func_name . ' failed '
+    end
     return result
   catch /^Vim(let):E117/
     let default_func_name = 'plugin_manager#default#' . a:hook
