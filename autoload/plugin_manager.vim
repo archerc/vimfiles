@@ -12,6 +12,42 @@ if exists('g:did_autoload_plugin_manager') && g:did_autoload_plugin_manager
 endif
 let g:did_autoload_plugin_manager = 1
 
+let s:is_win64 = has('win64')
+let s:python3_home_dirs = [
+      \   $VIM . '/../Python/3.7.3.amd64',
+      \   $VIM . '/../Python/3.7.4.amd64',
+      \ ]
+function! plugin_manager#setup_python3() abort " {{{
+  if has('python3')
+    return s:check_python3()
+  endif
+  set pythonthreedll&
+  for home in s:python3_home_dirs
+    let &pythonthreehome = fnamemodify(home, ':p:h')
+    let python3_dll = fnamemodify(home . &pythonthreedll, ':p')
+    if filereadable(python3_dll)
+      let &pythonthreehome = home
+      if has('python3')
+        return s:check_python3()
+      endif
+    endif
+  endfor
+endfunction " }}}
+
+function! s:check_python3() abort " {{{
+  let g:python_path = expand($VIM . '/vimfiles/python3')
+  try
+    py3 import vim
+    py3 import sys
+    py3 print(sys.path)
+    py3 sys.path.insert(0, vim.vars['python_path'].decode('utf-8'))
+    py3 import vim_test
+    return v:true
+  catch
+    echom v:exception
+  endtry
+endfunction " }}}
+
 function! plugin_manager#load_all_plugins() abort " {{{
 	if empty(s:available_plugins)
     call s:init()
@@ -19,6 +55,7 @@ function! plugin_manager#load_all_plugins() abort " {{{
   for p in g:available_plugins
     call p.load()
   endfor
+  call s:remove_extra_rtps()
 endfunction " }}}
 
 let s:bundle = expand($VIM . '/vimfiles/bundle') 
@@ -66,6 +103,16 @@ function! s:init() abort " {{{
   if empty(get(g:, 'available_plugins', []))
     let g:available_plugins = s:available_plugins
 	endif
+endfunction " }}}
+
+function! s:remove_extra_rtps() abort " {{{
+  let old_rtp = split(&rtp, ',')
+  set rtp=
+  for directory in old_rtp
+    if isdirectory(directory)
+      exec 'set rtp+=' . directory
+    endif
+  endfor
 endfunction " }}}
 
 let s:plugin = { 'is_loaded': v:false }
