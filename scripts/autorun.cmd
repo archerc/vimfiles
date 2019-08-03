@@ -24,7 +24,8 @@ set GTAGS_BIN=D:\Programs\global\bin
 set TEX_BIN=D:\Programs\texlive\2018\bin\win32
 set StarDict=D:\Programs\StarDict
 set GTK_BIN=D:\Programs\GTK\2.0\bin
-set PATH=%SYSTEM_PATH%;%StarDict%;%GTK_BIN%;%VIM_BIN%;%GTAGS_BIN%;%TEX_BIN%;%GIT_BIN%;%CONDA_BIN%;%~dp0%
+set PYTHON_BIN=D:\Programs\Python\3.7.4.amd64;D:\Programs\Python\3.7.4.amd64\Scripts
+set PATH=%SYSTEM_PATH%;%StarDict%;%GTK_BIN%;%VIM_BIN%;%GTAGS_BIN%;%TEX_BIN%;%GIT_BIN%;%CONDA_BIN%;%PYTHON_BIN%;%~dp0%
 
 REM …Ë÷√√¸¡ÓÃ· æ∑˚
 prompt $P$G$_$D$B$T$G$S$$$S
