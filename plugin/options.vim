@@ -28,6 +28,8 @@ set noswapfile
 set hls
 set guioptions=grL
 set helplang=cn
+set splitbelow
+set splitright
 filetype plugin indent on
 syntax on
 " }}}

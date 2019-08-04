@@ -53,7 +53,11 @@ let g:topdict[' '].o.o = ['copen', 'quickfix']
 let g:topdict[' '].o.l = ['lopen', 'locationlist']
 let g:topdict[' '].t = { 'name' : 'Toggle' }
 let g:topdict[' '].t.b = ['ToggleBufExplorer',                      'buffer']
-let g:topdict[' '].t.f = ['ToggleFullScreen',                       'fullscreen']
+let g:topdict[' '].t.c = ['Commentary',                             'comment']
+let g:topdict[' '].t.e = ['VimFilerExplorer',                       'explorer']
+let g:topdict[' '].t.f = ['ToggleFold',                             'fold']
+let g:topdict[' '].t.q = ['ToggleQuickFix',                         'quickfix']
+let g:topdict[' '].t.s = ['ToggleFullScreen',                       'fullscreen']
 let g:topdict[' '].u = { 	'name': 'Unite' }
 let g:topdict[' '].u.b = ['Unite -start-insert buffer',							'buffer']
 let g:topdict[' '].u.d = ['Unite -start-insert neomru/directory',		'file']
@@ -75,7 +79,24 @@ function! plugin_manager#vim_leader_guide#after_load() abort "{{{ 初始化
   return v:true
 endfunction "}}}
 
+function! s:toggle_fold() abort " {{{
+  exec 'normal ' . (foldclosed('.') > 0?'zo':'zc')
+endfunction " }}}
+
+function! s:toggle_quickfix() abort " {{{
+  if &buftype == "quickfix"
+    cclose
+  else
+    copen
+  endif
+endfunction " }}}
+
 function! s:define_mappings() abort "{{{ 定义键映射
+  command! ToggleFold       call <SID>toggle_fold()
+  command! ToggleQuickFix   call <SID>toggle_quickfix()
+  nnoremap <Plug>(toggle-fold) :ToggleFold<CR>
+  nnoremap <Plug>(toggle-comment)    :Commentary<CR>
+  vnoremap <Plug>(toggle-comment)    :Commentary<CR>
   nnoremap <Plug>(list-marks) :marks<CR>
   nnoremap <Plug>(current-directory) :cd %:p:h<CR>
   nnoremap <Plug>(delete-buffer)  :bd!<CR>
@@ -83,7 +104,6 @@ function! s:define_mappings() abort "{{{ 定义键映射
   nnoremap <Plug>(write-buffer)   :w! %<CR>
   nnoremap <Plug>(open-quickfix)  :copen<CR>
   nnoremap <Plug>(open-locations) :lopen<CR>
-  nnoremap <Plug>(toggle-fold)    :exec 'normal ' . (foldclosed('.')>0?'zo':'zc')<CR>
   " by functions
   nnoremap <Plug>(copy-filepath) :call <SID>copy_current_filepath()<CR>
   nnoremap <Plug>(edit-vimrc) :call <SID>edit_vimrc()<CR>
@@ -134,6 +154,13 @@ function! s:bind_keys() abort "{{{ 绑定快捷键
   nnoremap [w :wprev<CR>
   nnoremap ]t :tnext<CR>
   nnoremap [t :tprev<CR>
+  "split navigations
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+  nmap      <F3>      <Plug>(toggle-comment)
+  vmap      <F3>      <Plug>(toggle-comment)
   nmap 			<silent> 	<Leader>fd			<Plug>(current-directory)
   nmap 			<silent> 	<Leader>fl			<Plug>(list-marks)
   nmap 			<silent> 	<Leader>gg]			<Plug>GitGutterNextHunk

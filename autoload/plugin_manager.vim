@@ -120,7 +120,7 @@ function! s:plugin.name() dict  " {{{
   return fnamemodify(self.directory, ':t:r')
 endfunction  " }}}
 
-let s:disabled_plugins = ['ultisnips', 'vim-gitgutter', 'YouCompleteMe']
+let s:disabled_plugins = ['YouCompleteMe']
 function! s:plugin.is_enabled() dict "{{{
 	let disabled_plugins = get(g:, 'disabled_plugins', s:disabled_plugins)
 	return index(disabled_plugins, self.name()) < 0
