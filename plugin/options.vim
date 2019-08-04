@@ -28,13 +28,15 @@ set noswapfile
 set hls
 set guioptions=grL
 set helplang=cn
+set splitbelow
+set splitright
 filetype plugin indent on
 syntax on
 " }}}
 " function: SetFont() {{{
 function! SetFont() abort
   try
-    set gfn=Inziu_Iosevka_SC:h14:cANSI:qDRAFT
+    set gfn=Inziu_IosevkaCC_SC:h14:cANSI:qDRAFT
   catch
     set gfn=Lucida_Console:h14:cANSI:qDRAFT
   endtry
