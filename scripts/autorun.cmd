@@ -15,17 +15,25 @@ if %ERRORLEVEL% neq 0 (
 
 REM 我的默认配置
 set LESSCHARSET=utf-8
+
+REM PATH
 set SYSTEM_PATH=%PATH%
-set CONDA_BIN=D:\Programs\Anaconda3\condabin
-set GIT_BIN=D:\Programs\Git\usr\bin;D:\Programs\Git\cmd
-set GECKO_BIN=D:\Programs\GeckoDriver
-set PANDOC_BIN=D:\Programs\Anaconda3\Scripts
-set VIM_BIN=D:\Programs\Vim\vim81
-set GTAGS_BIN=D:\Programs\global\bin
-set TEX_BIN=D:\Programs\texlive\2018\bin\win32
-set StarDict=D:\Programs\StarDict
-set GTK_BIN=D:\Programs\GTK\2.0\bin
-set PYTHON_BIN=D:\Programs\Python\3.7.4.amd64;D:\Programs\Python\3.7.4.amd64\Scripts
+if x"%ProgramsDir%" == x"" (
+  echo ProgramsDir is empty
+  set ProgramsDir=D:\Programs
+  echo setting ProgramsDir to %ProgramsDir%
+)
+set CONDA_BIN=%ProgramsDir%\Anaconda3\condabin
+set GIT_BIN=%ProgramsDir%\Git\usr\bin;%ProgramsDir%\Git\cmd
+set GECKO_BIN=%ProgramsDir%\GeckoDriver
+set PANDOC_BIN=%ProgramsDir%\Anaconda3\Scripts
+set VIM_BIN=%ProgramsDir%\Vim\vim81
+set GTAGS_BIN=%ProgramsDir%\global\bin
+set TEX_BIN=%ProgramsDir%\texlive\2018\bin\win32
+set StarDict=%ProgramsDir%\StarDict
+set GTK_BIN=%ProgramsDir%\GTK\2.0\bin
+set PYTHON_VERSION=3.7.3.amd64
+set PYTHON_BIN=%ProgramsDir%\Python\%PYTHON_VERSION%;%ProgramsDir%\Python\%PYTHON_VERSION%\Scripts
 set PATH=%SYSTEM_PATH%;%GIT_BIN%;%GECKO_BIN%;%StarDict%;%GTK_BIN%;%VIM_BIN%;%GTAGS_BIN%;%TEX_BIN%;%CONDA_BIN%;%PYTHON_BIN%;%~dp0%
 
 REM 设置命令提示符
