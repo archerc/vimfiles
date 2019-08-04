@@ -1,8 +1,7 @@
 let g:UltiSnipsSnippetsDir = expand($VIM . '/vimfiles/UltiSnips')
 
-function! unite#sources#plugins#ultisnips#before_load()
-  echom 'UltiSnips is disabled.'
-  return v:false
+function! plugin_manager#ultisnips#before_load()
+  return plugin_manager#setup_python3()
 endfunction
 
 

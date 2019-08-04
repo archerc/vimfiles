@@ -23,12 +23,19 @@ function! plugin_manager#setup_python3() abort " {{{
   endif
   set pythonthreedll&
   for home in s:python3_home_dirs
-    let &pythonthreehome = fnamemodify(home, ':p:h')
-    let python3_dll = fnamemodify(home . &pythonthreedll, ':p')
-    if filereadable(python3_dll)
-      let &pythonthreehome = home
-      if has('python3')
-        return s:check_python3()
+    if isdirectory(home)
+      let &pythonthreehome = fnamemodify(home, ':p')
+      " echom 'python3 home set to ' . &pythonthreehome 
+      let python3_dll = fnamemodify(&pythonthreehome . '/' . &pythonthreedll, ':p')
+      " echom 'python3 dll set to ' . &pythonthreedll 
+      if filereadable(python3_dll)
+        let &pythonthreedll = python3_dll
+        if has('python3')
+          " echom 'python3 is enabled.'
+          return s:check_python3()
+        endif
+      else
+        " echom 'python3 dll ' . python3_dll . ' not found.'
       endif
     endif
   endfor
@@ -45,6 +52,7 @@ function! s:check_python3() abort " {{{
     return v:true
   catch
     echom v:exception
+    return v:false
   endtry
 endfunction " }}}
 
