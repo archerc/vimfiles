@@ -26,7 +26,7 @@ if x"%ProgramsDir%" == x"" (
 set CONDA_BIN=%ProgramsDir%\Anaconda3\condabin
 set GIT_BIN=%ProgramsDir%\Git\usr\bin;%ProgramsDir%\Git\cmd
 set GECKO_BIN=%ProgramsDir%\GeckoDriver
-set PANDOC_BIN=%ProgramsDir%\Anaconda3\Scripts
+set PANDOC_BIN=%ProgramsDir%\Pandoc
 set VIM_BIN=%ProgramsDir%\Vim\vim81
 set GTAGS_BIN=%ProgramsDir%\global\bin
 set TEX_BIN=%ProgramsDir%\texlive\2018\bin\win32
