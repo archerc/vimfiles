@@ -145,23 +145,23 @@ function! s:define_mappings() abort "{{{ 定义键映射
 endfunction "}}}
 
 function! s:bind_keys() abort "{{{ 绑定快捷键
-  nnoremap <C-s>   :w!<cr>
-  nnoremap ]f :next<CR>
-  nnoremap [f :prev<CR>
-  nnoremap ]b :bnext<CR>
-  nnoremap [b :bprev<CR>
-  nnoremap ]w :wnext<CR>
-  nnoremap [w :wprev<CR>
-  nnoremap ]t :tnext<CR>
-  nnoremap [t :tprev<CR>
+  nnoremap  <silent>  <C-s>   :w!<cr>
+  nnoremap  <silent> 	]f :next<CR>
+  nnoremap  <silent> 	[f :prev<CR>
+  nnoremap  <silent> 	]b :bnext<CR>
+  nnoremap  <silent> 	[b :bprev<CR>
+  nnoremap  <silent> 	]w :wnext<CR>
+  nnoremap  <silent> 	[w :wprev<CR>
+  nnoremap  <silent> 	]t :tnext<CR>
+  nnoremap  <silent> 	[t :tprev<CR>
   "split navigations
-  nnoremap <C-J> <C-W><C-J>
-  nnoremap <C-K> <C-W><C-K>
-  nnoremap <C-L> <C-W><C-L>
-  nnoremap <C-H> <C-W><C-H>
-  nmap      <F3>      <Plug>(toggle-comment)
-  vmap      <F3>      <Plug>(toggle-comment)
-  nmap 			<silent> 	<Leader>fd			<Plug>(current-directory)
+  nnoremap  <silent>  <C-J> <C-W><C-J>
+  nnoremap  <silent>  <C-K> <C-W><C-K>
+  nnoremap  <silent>  <C-L> <C-W><C-L>
+  nnoremap  <silent>  <C-H> <C-W><C-H>
+  nmap      <silent>  <F3>      <Plug>(toggle-comment)
+  vmap      <silent>  <F3>      <Plug>(toggle-comment)
+  nmap 		  <silent> 	<Leader>fd			<Plug>(current-directory)
   nmap 			<silent> 	<Leader>fl			<Plug>(list-marks)
   nmap 			<silent> 	<Leader>gg]			<Plug>GitGutterNextHunk
   nmap 			<silent> 	<Leader>gg[			<Plug>GitGutterPrevHunk
