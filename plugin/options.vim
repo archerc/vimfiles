@@ -18,6 +18,7 @@ set fileencodings=utf-8,ucs-bom,cp936,gb18030
 set lines=39 columns=150
 set number
 set ruler
+set visualbell
 set showcmd
 set cmdheight=2
 set showtabline=1

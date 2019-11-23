@@ -1,5 +1,6 @@
 let g:pymode = 1
 let g:pymode_python = 'python3'
+let g:pymode_paths = []
 let g:pymode_warnings = 1
 let g:pymode_trim_whitespaces = 1
 let g:pymode_options = 1
@@ -9,7 +10,7 @@ let g:pymode_motion = 1
 let g:pymode_doc = 1
 let g:pymode_run = 1
 let g:pymode_run_bind = '<leader>r'
-let g:pymode_breakpoint = 1
+let g:pymode_breakpoint = 0
 let g:pymode_breakpoint_bind = '<leader>b'
 let g:pymode_breakpoint_cmd = ''
 let g:pymode_lint = 0
@@ -31,9 +32,18 @@ let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
 
 function! plugin_manager#python_mode#before_load()  abort 
+  let runtimepath = split(&rtp, ',')
+  for p in runtimepath
+    let pymode_package_dir = fnamemodify(expand(p), ':p') . 'pymode'
+    if isdirectory(pymode_package_dir)
+      call insert(g:pymode_paths, pymode_package_dir, 0) 
+      echo g:pymode_paths
+    endif
+  endfor
 	return v:true
 endfunction
 
 function! plugin_manager#python_mode#after_load()  abort 
+  nnoremap <F5> :PymodeRun<CR>
 	return v:true
 endfunction
